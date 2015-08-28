@@ -1,0 +1,4 @@
+player Info
+5FC26D44 : byte memory location that stores the dammage of the player
+5FB42B54 : byte memory location that stores the dammage of the graphic
+607D6A34 : Float The current users X position   
