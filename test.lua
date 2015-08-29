@@ -22,6 +22,11 @@ function holdButton(n,b) --give the frames and the button press and it will exec
   end
 end
 
+function SmashAttack(n)
+  holdButton (2,"P1 A "..n)
+  button("P1 A")
+end
+
 
 function donothing()
   i = ggg
