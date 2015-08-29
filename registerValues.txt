@@ -1,4 +1,14 @@
-player Info
+Player Info:
 5FC26D44 : byte memory location that stores the dammage of the player
 5FB42B54 : byte memory location that stores the dammage of the graphic
 607D6A34 : Float The current users X position   
+
+-------------------------------------------------------------------
+Distance from CPU for Player:
+
+559F362A -- Use this one for now
+
+55905A2A -- 
+55905A26 --  --->These don't work in all modes and the values given are different, could be useful later.
+559F362E --
+---------------------------------------------------------------------
