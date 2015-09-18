@@ -33,11 +33,34 @@ function donothing()
   console.writeline("inside donothing")
 end
 
-console.writeline("going to print the event ")
-console.writeline(event)
-console.writeline('going to call onexit')
-event.onexit(timer)
+function button1 ()  -- any game button (in quotations)
+  if memory.read_s16_be(0x2EF050)>0 then 
+    local outputs = {}
+    outputs["P1 A Left"]  = true
+    joypad.set(outputs)
+  end
+end
 
-while true do 
-  emu.frameadvance(); 
-end 
+function button3 ()  -- any game button (in quotations)
+  if memory.read_s16_be(0x2EF050)<0 then 
+    local outputs = {}
+    outputs["P1 A Right"]  = true
+    joypad.set(outputs)
+  end
+end
+
+function button2 ()  -- any game button (in quotations)
+  
+    local outputs = {}
+    outputs["P1 A"]  = true
+    joypad.set(outputs)
+  
+end
+
+console.writeline(memory.read_s16_be(0x2EF050))
+
+--button2()
+
+
+event.onframeend(button1)
+event.onframeend(button3)
