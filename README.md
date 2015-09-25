@@ -1,1 +1,1 @@
-# smashAI
+# Awesome Smash Bot!
