@@ -1,0 +1,22 @@
+player 2 state, 1 byte, hex
+0x269427
+	- E8 = normal state
+	- C4 = running / ducking / sheild
+	- 9C = jumping
+	- 04 = normal b
+	- 58 = up b, 
+	- 5c = down b
+	- 44 = side smash, up 
+	- 
+
+
+1 byte addresses
+byte adds 		normal 	duck 	jump 	run-rigt  run-left	jab1
+0x268A67		 0A 	 1d 	 16 	 10 	 	11 		 
+0x268A6B		 04 	 17 	 10 	 0a 		0b 		
+0x26941E		 E0 	 31 	 f6 	 ee 		ef 		
+0x26941F		 70 	 54 	 60 	 50 		b0 	
+
+0x269423		 B4 	 b4 	 60 	 94 		14 		
+0x269427		 E8 	 c4 	 9c 	 c4 		e8 		
+
