@@ -1,10 +1,9 @@
+require "smashFunctions"
 
-require "test"
-
-xCord=0x2EF050
-yCord=0x2EEFC8
-distance=0x18F5E6
-p2Y=0x268AC4
+xCord=0x2EEF10
+yCord=0x2EEE88
+distance=0x18EB3C
+p2Y=0x268984
 p2X=0x268AC0
 
 function mRecovery ()  -- Mario Recovery
@@ -108,7 +107,7 @@ end
 
 while true do 
   platformCheck();
-  --stagePos();
+  stagePos();
   mRecovery();
   airAttack();
   groundAttack();

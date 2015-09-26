@@ -55,4 +55,38 @@ function downB(dir)  --does a down B with max vertical height gain
   end
 end
 
+function dashAttack(dir)
+  holdButton(10,dir)
+  button("P1 A")
+end
+
+function SHAerial ()
+  button("P1 C Up")
+  timer(30)
+  button("P1 A")
+  timer (16)
+  button("P1 Z")
+  timer(18)
+  SmashAttack("Down")
+end
+
+function SHAerial2()
+  button("P1 C Up")
+  timer(30)
+  button("P1 A Down")
+  button("P1 A")
+  ZCancel()
+  timer(4)
+  SmashAttack ("Up")
+  
+end
+
+function ZCancel ()
+  while memory.read_s16_be(yCord)>0 and memory.read_s16_be(yCord)<=18000 do
+  if  memory.read_s16_be(yCord)>=17000 and memory.read_s16_be(yCord)<=17100 then
+        button ("P1 Z")
+         end
+  emu.frameadvance()
+  end
+end
 
