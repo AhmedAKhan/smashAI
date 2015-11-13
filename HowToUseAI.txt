@@ -1,5 +1,0 @@
-1. Paste MarioBot.lua and smashFunctions.lua in the same directory.
-2. Open the game in Bizhawk and go to load state 2.
-3. Set player 1 to Mario, player 2 is you and can be anyone.
-4. Pick Dreamland
-5. In Bizhawk go to tools ---> Lua console and open MarioBot.lua
