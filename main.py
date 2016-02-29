@@ -7,9 +7,9 @@ import os;
 def findDolphinPath():
     homePath = os.path.expanduser('~'); # this is the home path
     if sys.platform == "linux" or sys.platform == "linux2":
-        path += '/.local/share' # linux
-        if (os.path.isdir(homePath + '/.local/share/dolphin-emu')): homePath += '/.local/share/dolphin-emu';
-        else: path += '/.local/dolphin-emu';
+        path = homePath + '/.local/share' # linux
+        if (os.path.isdir(homePath + '/.local/share/dolphin-emu')): path += '/.local/share/dolphin-emu';
+        else: path = homePath + '/.local/dolphin-emu';
         homePath = path;
     elif sys.platform == "darwin": homePath += "/Library/Application Support/Dolphin"
 
