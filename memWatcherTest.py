@@ -42,7 +42,6 @@ while True:
 
   print("-" * 20) ## print a line just to make it easier to read
   print(datagram) ## print the information
-  if "DONE" == datagram: break ## if done is printed just end the session
 
 socket.close();
 
