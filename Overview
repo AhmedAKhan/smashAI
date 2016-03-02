@@ -1,0 +1,28 @@
+1. Figure out how to measure frames in the game. This is so we can handle timing based
+techniques in the game. Ex. Do a short hop, wait (#of frames) laser
+
+Saturday
+
+2. Create:
+    
+    Walk
+    Run
+    Dash Dance
+
+    Jab (regular and held down)
+    Smash attack funtions (up, side, down)
+    Tilts (Up,side,down)
+    Dash Attack 
+    B moves (up, down, side, neutral)
+
+    Shield (regular and light shield)
+    Rolls
+    Spot Dodge
+
+    Short Hop
+    Full Hop
+    Double Jump
+
+
+    Deadline: Monday
+
