@@ -65,6 +65,7 @@ class MemoryWatcher:
             datagram = datagram.splitlines();
             region = datagram[0].decode('ascii');
             if(region == "00479D60"): numberOfFramesPassed += 1;
+            if(numberOfFramesPassed >= delay): return;
 
 
 

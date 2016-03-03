@@ -18,26 +18,22 @@ class Controller:
         time.sleep(2);
         print(self.pipe);
         print(type(self.pipe));
-        self.pipe.flush();
-        # self.pipe.close()
+        self.pipe.close()
 
 
 def test():
     pipeTemplate = pipes.Template()
     pipeTemplate.append('tr a-z A-Z', '--')
-    pipe = pipeTemplate.open('./testp','w')
+    pipe = pipeTemplate.open('./testp','w', )
     time.sleep(2);
-    chomp("added some stuff");
-    print("chomping the file");
+    # pipe.append("asasdsad");
     time.sleep(2);
     pipe.close();
     print("just closed the pipe");
-
-
     return;
 
 
 
 if __name__ == '__main__':
-    test2();
+    test();
 
