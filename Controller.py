@@ -1,11 +1,14 @@
 import pipes
 import time;
+from memoryWatcher import MemoryWatcher
 
 """
     self.pipe = this is variable that is the pipe, you can write to it, or read to it and it will write to the file
     self.path = the location to where the dolphin folder is inside the computer
 """
 
+def testFun():
+    print ("It works")
 class Controller:
     def __init__(self, path):
         self.path = path;
@@ -22,22 +25,22 @@ class Controller:
         # self.pipe.close()
 
 
-def test():
-    pipeTemplate = pipes.Template()
-    pipeTemplate.append('tr a-z A-Z', '--')
-    pipe = pipeTemplate.open('./testp','w')
-    time.sleep(2);
-    chomp("added some stuff");
-    print("chomping the file");
-    time.sleep(2);
-    pipe.close();
-    print("just closed the pipe");
+
+    def test2(self):
+        time.sleep(3)
+        testFun()
+        pipeTemplate = pipes.Template()
+        pipeTemplate.append('tr a-z A-Z', '--')
+        pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
+        pipe.write("PRESS X\n");
+        timer=MemoryWatcher(self.path)
+        timer.startSocket();
+        timer.pauseForTime(2)
+        pipe.close();
 
 
-    return;
+        return;
 
 
 
-if __name__ == '__main__':
-    test2();
 

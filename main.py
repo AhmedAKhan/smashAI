@@ -4,6 +4,7 @@ from Controller import Controller;
 import sys;
 import os;
 import cpu;
+import time
 
 def findDolphinPath():
     homePath = os.path.expanduser('~'); # this is the home path
@@ -32,6 +33,8 @@ def findDolphinPath():
 
 # print(findDolphinPath());
 
+
+
 def initialSetup():
     return;
 
@@ -40,7 +43,7 @@ def main():
     memWatcher = MemoryWatcher(findDolphinPath());
     controller = Controller(findDolphinPath());
     memWatcher.startSocket();
-    cpu.start(memWatcher, controller);
+    controller.test2();
     return;
 
 
@@ -48,4 +51,3 @@ def main():
 
 if __name__ == '__main__':
     main();
-

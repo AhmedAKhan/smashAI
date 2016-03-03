@@ -62,10 +62,14 @@ class MemoryWatcher:
         numberOfFramesPassed = 0;
         while(True):
             datagram = self.socket.recv( 1024 ) # get the information from the socket
+            print (datagram)
             datagram = datagram.splitlines();
             region = datagram[0].decode('ascii');
-            if(region == "00479D60"): numberOfFramesPassed += 1;
-
+            if(region == "00479D60"):
+                numberOfFramesPassed += 1;
+                print(numberOfFramesPassed)
+            if(numberOfFramesPassed >= delay):
+                return;
 
 
 
