@@ -2,6 +2,8 @@
 import os;
 import socket as sc;
 import debugger as dgr;
+import binascii;
+import time;
 
 #### from the dolphin documentation
 ## MemoryWatcher reads a file containing in-game memory addresses and outputs
@@ -15,6 +17,18 @@ import debugger as dgr;
 ##
 ##
 
+"""
+    This is how dolphines memory watcher uses the data
+    MemoryWatcher reads a file containing in-game memory addresses and outputs
+    changes to those memory addresses to a unix domain socket as the game runs.
+
+    The input file is a newline-separated list of hex memory addresses, without
+    the "0x". To follow pointers, separate addresses with a space. For example,
+    "ABCD EF" will watch the address at (*0xABCD) + 0xEF.
+    The output to the socket is two lines. The first is the address from the
+    input file, and the second is the new value in hex.
+"""
+
 class MemoryWatcher:
 
     def __init__(self, path):
@@ -26,6 +40,7 @@ class MemoryWatcher:
             # SOCK_STREAM = garuntees order, and relative garuntee that message was successfully sent,
         self.socket = sc.socket(sc.AF_UNIX, sc.SOCK_DGRAM, 0);
         self.path = path; # the path to where dolphin emulator is stored
+        self.
     def startSocket(self):
         ### make sure the socket does not already exist
         socketPath =  self.path + "/MemoryWatcher" + '/MemoryWatcher' # this is the path to the socket
@@ -58,6 +73,18 @@ class MemoryWatcher:
     """
     def runAfterFrames(delay, fun, *args):
         return fun(*args);
+    def pauseForTime(self, delay):
+        print("inside the pause for delay");
+        while(True):
+            datagram = self.socket.recv( 1024 ) # get the information from the socket
+            datagram = datagram.splitlines();
+            region = datagram[0].decode('ascii');
+            value = int( binascii.hexlify(datagram[1]))
+            # print("region: " + region + " value: " + str(value))
+
+            if(region == "00479D60"):
+                return;
+
 
 # if __name__ == '__main__':
 #     main();
