@@ -1,6 +1,7 @@
 #import socket module
 import os;
 import socket as sc;
+import debugger as dgr;
 
 #### from the dolphin documentation
 ## MemoryWatcher reads a file containing in-game memory addresses and outputs
@@ -34,18 +35,21 @@ class MemoryWatcher:
 
         ## bind the socket to its path
         self.socket.bind(socketPath);
-        print("binded the socket waiting for input");
+        dgr.dprint("binded the socket waiting for input");
 
     def test(self):
         while True:
-            print("starting to read from socket");
+            dgr.dprint("starting to read from socket");
             datagram = self.socket.recv( 1024 ) # get the information from the socket
             if not datagram: break # break out if the information is null
 
-            print("-" * 20) ## print a line just to make it easier to read
-            print(datagram) ## print the information
+            dgr.dprint("-" * 20) ## print a line just to make it easier to read
+            dgr.dprint(datagram) ## print the information
 
         self.socket.close();
+
+    def startMemoryWatcher():
+        return; # TODO
 
     """
       this function will call the function that has been inputed by the user

@@ -26,9 +26,23 @@ def findDolphinPath():
 memWatcher = MemoryWatcher(findDolphinPath());
 controller = Controller(findDolphinPath());
 
-controller.test();
+# controller.test();
 # memWatcher.test();
 
-print(findDolphinPath());
+# print(findDolphinPath());
 
+def initialSetup():
+    return;
+
+def main():
+    initialSetup();
+    memWatcher = MemoryWatcher(findDolphinPath());
+    controller = Controller(findDolphinPath());
+    return;
+
+
+
+
+if __name__ == '__main__':
+    main();
 
