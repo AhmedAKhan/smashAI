@@ -1,20 +1,43 @@
 import pipes
 import time;
 
+"""
+    self.pipe = this is variable that is the pipe, you can write to it, or read to it and it will write to the file
+    self.path = the location to where the dolphin folder is inside the computer
+"""
 
 class Controller:
     def __init__(self, path):
         self.path = path;
-        print("inside the constructor");
+        pipeTemplate = pipes.Template()
+        pipeTemplate.append('tr a-z A-Z', '--')
+        self.pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
 
-    def test(self):
-        t = pipes.Template()
-        t.append('tr a-z A-Z', '--')
-        f = t.open(self.path+'/Pipes/cpu-level-11', 'w')
-        f.write('PRESS B\n')
+    def test(self, txt):
+        self.pipe.write(txt)
         time.sleep(2);
-        f.close()
+        print(self.pipe);
+        print(type(self.pipe));
+        self.pipe.flush();
+        # self.pipe.close()
 
- # if __name__ == '__main__':
-    # main();
+
+def test():
+    pipeTemplate = pipes.Template()
+    pipeTemplate.append('tr a-z A-Z', '--')
+    pipe = pipeTemplate.open('./testp','w')
+    time.sleep(2);
+    chomp("added some stuff");
+    print("chomping the file");
+    time.sleep(2);
+    pipe.close();
+    print("just closed the pipe");
+
+
+    return;
+
+
+
+if __name__ == '__main__':
+    test2();
 

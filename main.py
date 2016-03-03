@@ -3,6 +3,7 @@ from memoryWatcher import MemoryWatcher;
 from Controller import Controller;
 import sys;
 import os;
+import cpu;
 
 def findDolphinPath():
     homePath = os.path.expanduser('~'); # this is the home path
@@ -23,8 +24,8 @@ def findDolphinPath():
     return homePath;
 
 
-memWatcher = MemoryWatcher(findDolphinPath());
-controller = Controller(findDolphinPath());
+# memWatcher = MemoryWatcher(findDolphinPath());
+# controller = Controller(findDolphinPath());
 
 # controller.test();
 # memWatcher.test();
@@ -37,9 +38,9 @@ def initialSetup():
 def main():
     initialSetup();
     memWatcher = MemoryWatcher(findDolphinPath());
-    # controller = Controller(findDolphinPath());
+    controller = Controller(findDolphinPath());
     memWatcher.startSocket();
-    memWatcher.pauseForTime(10);
+    cpu.start(memWatcher, controller);
     return;
 
 
