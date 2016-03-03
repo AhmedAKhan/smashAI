@@ -60,6 +60,7 @@ class MemoryWatcher:
             return;
         print("inside the pause for delay");
         numberOfFramesPassed = 0;
+        print("still paused");
         while(True):
             datagram = self.socket.recv( 1024 ) # get the information from the socket
             print (datagram)

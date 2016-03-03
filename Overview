@@ -1,8 +1,3 @@
-1. Figure out how to measure frames in the game. This is so we can handle timing based
-techniques in the game. Ex. Do a short hop, wait (#of frames) laser
-
-Saturday
-
 2. Create:
     
     Walk
@@ -25,4 +20,12 @@ Saturday
 
 
     Deadline: Monday
+
+3. 
+
+Finding all memory address for Fox
+Also Includes:
+
+Fox: X and Y coordinates
+
 

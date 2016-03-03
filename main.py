@@ -40,9 +40,9 @@ def initialSetup():
 
 def main():
     initialSetup();
-    memWatcher = MemoryWatcher(findDolphinPath());
+    # memWatcher = MemoryWatcher(findDolphinPath());
     controller = Controller(findDolphinPath());
-    memWatcher.startSocket();
+    # memWatcher.startSocket();
     controller.test2();
     return;
 

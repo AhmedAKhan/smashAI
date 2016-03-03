@@ -31,11 +31,20 @@ class Controller:
         testFun()
         pipeTemplate = pipes.Template()
         pipeTemplate.append('tr a-z A-Z', '--')
+
         pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
+        pipe.write("RELEASE Y\n");
+        pipe.write("RELEASE X\n");
         pipe.write("PRESS X\n");
+        pipe.close();
+
         timer=MemoryWatcher(self.path)
         timer.startSocket();
         timer.pauseForTime(2)
+
+
+        pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
+        pipe.write("RELEASE X\n");
         pipe.close();
 
 
