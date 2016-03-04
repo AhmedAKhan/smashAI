@@ -3,6 +3,9 @@
 
 
 
+def start():
+    return;
+
 
 
 def main(memoryWatcher, controller):
