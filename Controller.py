@@ -40,22 +40,25 @@ class Controller:
         pipe.write("RELEASE START\n");
         pipe.close();
 
-#this doesn't work because you can't seem to pass in variables in pipes
-    def inputs(self,button2Press,timeHeld):
+    #this doesn't work because you can't seem to pass in variables in pipes
+    """
+        this function will press or release the given button for the given amount of time
+        par1 = button2Press = the current button that needs to be pressed
+        par2 = timeHeld = the time that the button needs to be held
+        par3 = if you want the button to be released make pressOrReleased to False
+    """
+    def inputs(self,button2Press,timeHeld, pressOrRelease=True):
         pipeTemplate = pipes.Template()
         pipeTemplate.append('tr a-z A-Z', '--')
         pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
-        pipe.write("RELEASE Y\n");
-        pipe.write("RELEASE X\n");
-        # pipe.write("PRESS X\n");
-        print ("PRESS "+button2Press+"\n")
-        print ("PRESS X\n")
-        pipe.write("PRESS"+button2Press+"\n")
+        action = "PRESS";
+        if(not pressOrRelease): action = "RELEASE";
+        pipe.write(action + " "+button2Press+"\n")
         timer=MemoryWatcher(self.path)
         timer.startSocket();
-        timer.pauseForTime(timeHeld)
         # pipe.write("RELEASE "+button2Press+"\n");
         pipe.close();
+        timer.pauseForTime(timeHeld)
 
 #pass in 2 frames for short hop, 3 or more for full hop
     def jump(self,pauseTime):
@@ -163,12 +166,16 @@ class Controller:
         # pipe.close();
         # timer.pauseForTime(26)
 
-        #self.sideB(True)
+        self.sideB(True)
 
 
         self.releaseButtons()
         return;
 
 
-
+    def inputsFunctionTest(self):
+        time.sleep(4);
+        self.inputs("X",10);
+        self.inputs("X",10, False);
+        # self.inputs(self,"A",10);
 

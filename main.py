@@ -43,7 +43,7 @@ def main():
     # memWatcher = MemoryWatcher(findDolphinPath());
     controller = Controller(findDolphinPath());
     # memWatcher.startSocket();
-    controller.test2();
+    controller.inputsFunctionTest();
     return;
 
 
