@@ -14,7 +14,6 @@ def findDolphinPath():
         else: path = homePath + '/.local/dolphin-emu';
         homePath = path;
     elif sys.platform == "darwin": homePath += "/Library/Application Support/Dolphin"
-
     print(homePath);
     if(not (os.path.isdir(homePath))):
         print("can not find path for dolphin, are you sure it is installed??");
@@ -43,7 +42,8 @@ def main():
     # memWatcher = MemoryWatcher(findDolphinPath());
     controller = Controller(findDolphinPath());
     # memWatcher.startSocket();
-    controller.inputsFunctionTest();
+    # controller.inputsFunctionTest();
+    controller.test2()
     return;
 
 
