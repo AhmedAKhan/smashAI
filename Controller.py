@@ -52,10 +52,12 @@ class Controller:
         pipe.write("Set MAIN 0.5 0.5\n");
         pipe.write("SET C 0.5 0.5\n");
         pipe.write("SET L 0\n");
+        pipe.write("SET R 0\n");
         pipe.write("RELEASE X\n");
         pipe.write("RELEASE A\n");
         pipe.write("RELEASE B\n");
         pipe.write("RELEASE Z\n");
+        pipe.write("RELEASE L\n");
         pipe.write("RELEASE START\n");
         pipe.close();
 
@@ -74,11 +76,7 @@ class Controller:
         action = "PRESS";
         if(not pressOrRelease): action = "RELEASE";
         pipe.write(action + " "+button2Press+"\n")
-        # timer=MemoryWatcher(self.path)
-        # timer.startSocket();
-        # pipe.write("RELEASE "+button2Press+"\n");
         pipe.close();
-        # timer.pauseForTime(timeHeld)
 
     def inputAnalog(self,action,buttonXCord,buttonYCord,pressOrRelease=True):
         pipeTemplate = pipes.Template()
@@ -88,7 +86,7 @@ class Controller:
         pipe.write("Set"+" "+action+" "+buttonXCord+" "+buttonYCord+"\n")
         pipe.close();
 
-    def inputAnalogs(self,action,buttonXCord,pressOrRelease=True):
+    def triggerAnalog(self,action,buttonXCord,pressOrRelease=True):
         pipeTemplate = pipes.Template()
         pipeTemplate.append('tr a-z A-Z', '--')
         pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
@@ -115,24 +113,17 @@ class Controller:
 
         timer=MemoryWatcher(self.path)
         timer.startSocket();
-        pipeTemplate = pipes.Template()
-        pipeTemplate.append('tr a-z A-Z', '--')
         timer.pauseForTime(12)
-        pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
-        pipe.write("Set MAIN 0.5 0.5\n");
-        pipe.close();
+
+        self.inputAnalog("MAIN","0.5","0.5")
         x=15
         while (x>0):
 
             timer.pauseForTime(11)
-            pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
-            pipe.write("Set MAIN 0 0.5\n");
-            pipe.close();
 
+            self.inputAnalog("MAIN","0","0.5")
             timer.pauseForTime(11)
-            pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
-            pipe.write("Set MAIN 1 0.5\n");
-            pipe.close();
+            self.inputAnalog("MAIN","1","0.5")
             x=x-1
     # def walk (self):
     # def run (self):
@@ -150,42 +141,26 @@ class Controller:
 
 
     def sideB(self,Shorten):
-        pipeTemplate = pipes.Template()
-        pipeTemplate.append('tr a-z A-Z', '--')
         timer=MemoryWatcher(self.path)
         timer.startSocket();
-
-        pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
-        pipe.write("Set MAIN 0 0.5\n");
-        pipe.close();
-
+        self.inputAnalog("MAIN","0","0.5")
         timer.pauseForTime(1)
-
         self.inputs("B",1)
-
         timer.pauseForTime(1)
 # 18
         if Shorten is True:
-            pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
-            pipe.write("RELEASE B\n");
-            pipe.close();
+            self.releaseButtons()
             timer.pauseForTime(20)
-            pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
-            pipe.write("PRESS B\n");
-            pipe.close();
+            self.inputs("B")
 
         timer.pauseForTime(1)
 
 #performs a jump cancelled up Smash
     def upSmash(self):
-
-        pipeTemplate = pipes.Template()
-        pipeTemplate.append('tr a-z A-Z', '--')
-        pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
-        pipe.write("Set MAIN 0.5 1\n");
         timer=MemoryWatcher(self.path)
         timer.startSocket();
-        pipe.close();
+
+        self.inputAnalog("MAIN","0.5","1")
         timer.pauseForTime(1)
         self.inputs("A",1)
         timer.pauseForTime(3)
@@ -200,7 +175,7 @@ class Controller:
         timer.pauseForTime(3)
 
     def shield(self):
-        self.inputAnalogs("L","1")
+        self.triggerAnalog("L","1")
 
     def roll(self,dir):
 
@@ -216,6 +191,7 @@ class Controller:
         timer.pauseForTime(1)
 
     def dashAttack(self,dir):
+
         timer=MemoryWatcher(self.path)
         timer.startSocket();
         if dir=="right":
@@ -226,20 +202,30 @@ class Controller:
         self.inputs("A")
         timer.pauseForTime(1)
 
+    def waveDash(self,dir):
 
+        timer=MemoryWatcher(self.path)
+        timer.startSocket()
+        if dir=="right": self.inputAnalog("MAIN","0","0.3")
+        elif dir=="left": self.inputAnalog("MAIN","1","0.3")
+        self.inputs("X")
+        timer.pauseForTime(4)
+
+        self.inputs("L")
+        timer.pauseForTime(7)
 
 
     def test2(self):
         time.sleep(2)
         self.releaseButtons()
+        # self.sideB(True);
         # self.upSmash()
         # self.shield()
         # self.roll("right")
         # self.upTilt()
-        self.sideB(True)
         # self.upB("0","1")
         # self.dashAttack("left")
-
+        # self.waveDash("right")
         # self.dashDance()
 
         # timer=MemoryWatcher(self.path)
@@ -247,7 +233,7 @@ class Controller:
         # pipeTemplate = pipes.Template()
         # pipeTemplate.append('tr a-z A-Z', '--')
         # pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
-        # pipe.write("Set MAIN 0 0.5\n")
+        # pipe.write("PRESS X\n")
         # pipe.close();
         # timer.pauseForTime(26)
 
