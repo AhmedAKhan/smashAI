@@ -48,7 +48,7 @@ class Controller:
     def releaseButtons(self):
         pipeTemplate = pipes.Template()
         pipeTemplate.append('tr a-z A-Z', '--')
-        pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
+        pipe =pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
         pipe.write("Set MAIN 0.5 0.5\n");
         pipe.write("SET C 0.5 0.5\n");
         pipe.write("SET L 0\n");
@@ -129,12 +129,14 @@ class Controller:
     # def run (self):
     # def jab (self):
     def upB(self,xCord,yCord):
+        timer=MemoryWatcher(self.path)
+        timer.startSocket();
+        timer.pauseForTime(10)
         pipeTemplate = pipes.Template()
         pipeTemplate.append('tr a-z A-Z', '--')
         self.inputAnalog("MAIN","0.5","1")
+        timer.pauseForTime(30)
         self.inputs("B")
-        timer=MemoryWatcher(self.path)
-        timer.startSocket();
         timer.pauseForTime(2)
         self.inputAnalog("MAIN",xCord,yCord)
         timer.pauseForTime(76)
@@ -216,8 +218,34 @@ class Controller:
 
 
     def test2(self):
-        time.sleep(2)
+        time.sleep(1)
         self.releaseButtons()
+#//testing player 2 X coordinate
+        # y=0
+        # x=MemoryWatcher(self.path)
+        # x.startSocket()
+        # while (y<1000):
+        #     x.getX()
+        #     y=y+1
+
+#basic Recovery
+        # while (true):
+        #     # x.getx
+        #     x=memorywatcher(self.path)
+        #     x.startsocket()
+        #     if ( 1120447161< x.getx()<1124447162 ):
+        #     # if (x.getx()> 3000000000):
+        #         print ("this is the one:",x.getx())
+        #         self.upb("0","1")
+        #         self.releasebuttons()
+        #         # break
+        #     elif (x.getx()> 3268000000):
+        #         print ("this is the one:",x.getx())
+        #         self.upb("1","1")
+        #         self.releasebuttons()
+        #         # break
+
+
         # self.sideB(True);
         # self.upSmash()
         # self.shield()
@@ -225,7 +253,7 @@ class Controller:
         # self.upTilt()
         # self.upB("0","1")
         # self.dashAttack("left")
-        # self.waveDash("right")
+        self.waveDash("left")
         # self.dashDance()
 
         # timer=MemoryWatcher(self.path)

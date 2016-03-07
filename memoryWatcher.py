@@ -37,7 +37,7 @@ class MemoryWatcher:
 
         ## bind the socket to its path
         self.socket.bind(socketPath);
-        dgr.dprint("binded the socket waiting for input");
+        # dgr.dprint("binded the socket waiting for input");
     def test(self):
         while True:
             dgr.dprint("starting to read from socket");
@@ -58,14 +58,16 @@ class MemoryWatcher:
         if(not self.socket):
             print("the socket has not been created yet please create it before calling the pauseForTime function");
             return;
-        print("inside the pause for delay");
+        # print("inside the pause for delay");
         numberOfFramesPassed = 0;
-        print("still paused");
+        # print("still paused");
         while(True):
+
             datagram = self.socket.recv( 1024 ) # get the information from the socket
-            print (datagram)
+            # print (datagram)
             datagram = datagram.splitlines();
             region = datagram[0].decode('ascii');
+
             if(region == "00479D60"):
                 numberOfFramesPassed += 1;
                 print(numberOfFramesPassed)
@@ -73,10 +75,22 @@ class MemoryWatcher:
                 return;
 
 
+    def getX(self):
+            datagram = self.socket.recv( 1024 )
+            datagram = datagram.splitlines();
+            region = datagram[0].decode('ascii');
+            if "00453F20" in region:
+                x=((int(datagram[1].decode('ascii')[:-1],16)))
+                print(x)
+                return(x)
+            else:
+                return 0
+
+
+
+
 
 # if __name__ == '__main__':
 #     main();
-
-
 
 
