@@ -1,4 +1,3 @@
-import pipes
 import time;
 
 
@@ -7,117 +6,94 @@ class BasicCommands:
         self.memoryWatcher = memoryWatcher;
         self.controller = controller;
     def dashDance(self):
-        timer=self.memoryWatcher;
-        timer.pauseForTime(12)
+        self.memoryWatcher.pauseForTime(12)
 
         self.controller.inputAnalog("MAIN","0.5","0.5")
-        x=15
+        x=15;
         while (x>0):
-
-            timer.pauseForTime(11)
-
+            self.memoryWatcher.pauseForTime(11)
             self.controller.inputAnalog("MAIN","0","0.5")
-            timer.pauseForTime(11)
+            self.memoryWatcher.pauseForTime(11)
             self.controller.inputAnalog("MAIN","1","0.5")
             x=x-1
     # def walk (self):
     # def run (self):
     # def jab (self):
     def upB(self,xCord,yCord):
-        timer= self.memoryWatcher;
-        timer.pauseForTime(10)
-        pipeTemplate = pipes.Template()
-        pipeTemplate.append('tr a-z A-Z', '--')
+        self.memoryWatcher.pauseForTime(10)
         self.controller.inputAnalog("MAIN","0.5","1")
-        timer.pauseForTime(30)
+        self.memoryWatcher.pauseForTime(30)
         self.controller.inputs("B")
-        timer.pauseForTime(2)
+        self.memoryWatcher.pauseForTime(2)
         self.controller.inputAnalog("MAIN",xCord,yCord)
-        timer.pauseForTime(76)
+        self.memoryWatcher.pauseForTime(76)
 
 
     def sideB(self,Shorten):
-        timer=self.memoryWatcher;
         self.controller.inputAnalog("MAIN","0","0.5")
-        timer.pauseForTime(1)
+        self.memoryWatcher.pauseForTime(1)
         self.controller.inputs("B",1)
-        timer.pauseForTime(1)
-    # 18
+        self.memoryWatcher.pauseForTime(1)
+        # 18
         if Shorten is True:
             self.controller.releaseButtons()
-            timer.pauseForTime(20)
+            self.memoryWatcher.pauseForTime(20)
             self.controller.inputs("B")
 
-        timer.pauseForTime(1)
+        self.memoryWatcher.pauseForTime(1)
 
     #performs a jump cancelled up Smash
     def upSmash(self):
-        timer=self.memoryWatcher;
-
         self.controller.inputAnalog("MAIN","0.5","1")
-        timer.pauseForTime(1)
+        self.memoryWatcher.pauseForTime(1)
         self.controller.inputs("A",1)
-        timer.pauseForTime(3)
+        self.memoryWatcher.pauseForTime(3)
 
     def upTilt(self):
-
-        timer= self.memoryWatcher;
         self.controller.inputAnalog("MAIN","0.5","0.6")
-        timer.pauseForTime(1)
+        self.memoryWatcher.pauseForTime(1)
         self.controller.inputs("A",1)
-        timer.pauseForTime(3)
+        self.memoryWatcher.pauseForTime(3)
 
     def shield(self):
-        self.triggerAnalog("L","1")
+        self.controller.triggerAnalog("L","1")
 
     def roll(self,dir):
-
-        timer = self.memoryWatcher;
         self.shield()
-        timer.pauseForTime(14)
+        self.memoryWatcher.pauseForTime(14)
         print (dir)
         if dir=="right":
             self.controller.inputAnalog("C","1","0.5")
         elif dir is "left":
             self.controller.inputAnalog("C","0","0.5")
-        timer.pauseForTime(1)
+        self.memoryWatcher.pauseForTime(1)
 
     def dashAttack(self,dir):
-
-        timer = self.memoryWatcher;
         if dir=="right":
             self.controller.inputAnalog("MAIN","1","0.5")
         elif dir is "left":
             self.controller.inputAnalog("MAIN","0","0.5")
-        timer.pauseForTime(4)
+        self.memoryWatcher.pauseForTime(4)
         self.controller.inputs("A")
-        timer.pauseForTime(1)
+        self.memoryWatcher.pauseForTime(1)
 
     def waveDash(self,dir):
-
-        timer = self.memoryWatcher;
+        # timer = self.memoryWatcher;
         if dir=="right": self.controller.inputAnalog("MAIN","0","0.3")
         elif dir=="left": self.controller.inputAnalog("MAIN","1","0.3")
         self.controller.inputs("X")
-        timer.pauseForTime(4)
+        self.memoryWatcher.pauseForTime(4)
 
         self.controller.inputs("L")
-        timer.pauseForTime(7)
+        self.memoryWatcher.pauseForTime(7)
 
 
     #pass in 2 frames for short hop, 3 or more for full hop
     def jump(self,pauseTime):
-        pipeTemplate = pipes.Template()
-        pipeTemplate.append('tr a-z A-Z', '--')
-        pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
-        pipe.write("RELEASE X\n");
-        pipe.write("PRESS X\n");
-        pipe.close();
+        self.controller.inputs("X");
         timer = self.memoryWatcher;
         timer.pauseForTime(pauseTime)
-        pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
-        pipe.write("RELEASE X\n");
-        pipe.close();
+        self.controller.releaseButtons();
 
     def recover(self):
        while (True):
@@ -135,14 +111,7 @@ class BasicCommands:
         time.sleep(1)
         self.controller.releaseButtons()
 
-        # y=0
-        # x = self.memoryWatcher;
-        # while (y<1000):
-        #     x.getX()
-        #     y=y+1
-
-
-
+        ## testing hit stun
         # y=0
         # hitstun=self.memoryWatcher;
         # while (y<1000):
@@ -159,17 +128,6 @@ class BasicCommands:
         # self.dashAttack("left")
         # self.waveDash("left")
         # self.dashDance()
-
-        # timer=MemoryWatcher(self.path)
-        # timer.startSocket();
-        # pipeTemplate = pipes.Template()
-        # pipeTemplate.append('tr a-z A-Z', '--')
-        # pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
-        # pipe.write("PRESS X\n")
-        # pipe.close();
-        # timer.pauseForTime(26)
-
-
 
         self.controller.releaseButtons()
         return;

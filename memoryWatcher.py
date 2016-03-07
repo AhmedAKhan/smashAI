@@ -62,7 +62,6 @@ class MemoryWatcher:
         numberOfFramesPassed = 0;
         # print("still paused");
         while(True):
-
             datagram = self.socket.recv( 1024 ) # get the information from the socket
             # print (datagram)
             datagram = datagram.splitlines();
@@ -70,7 +69,7 @@ class MemoryWatcher:
 
             if(region == "00479D60"):
                 numberOfFramesPassed += 1;
-                print(numberOfFramesPassed)
+                # print("number of frames passed: " + str(numberOfFramesPassed))
             if(numberOfFramesPassed >= delay):
                 return;
 

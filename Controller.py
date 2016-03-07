@@ -1,6 +1,4 @@
 import pipes
-import time;
-from memoryWatcher import MemoryWatcher
 
 """
     self.pipe = this is variable that is the pipe, you can write to it, or read to it and it will write to the file
