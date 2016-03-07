@@ -220,7 +220,7 @@ class Controller:
     def test2(self):
         time.sleep(1)
         self.releaseButtons()
-#//testing player 2 X coordinate
+
         # y=0
         # x=MemoryWatcher(self.path)
         # x.startSocket()
@@ -228,22 +228,28 @@ class Controller:
         #     x.getX()
         #     y=y+1
 
-#basic Recovery
-        # while (true):
+
+        # while (True):
         #     # x.getx
-        #     x=memorywatcher(self.path)
-        #     x.startsocket()
+        #     x=MemoryWatcher(self.path)
+        #     x.startSocket()
         #     if ( 1120447161< x.getx()<1124447162 ):
         #     # if (x.getx()> 3000000000):
         #         print ("this is the one:",x.getx())
-        #         self.upb("0","1")
+        #         self.upB("0","1")
         #         self.releasebuttons()
         #         # break
         #     elif (x.getx()> 3268000000):
         #         print ("this is the one:",x.getx())
-        #         self.upb("1","1")
-        #         self.releasebuttons()
+        #         self.upB("1","1")
+        #         self.releaseButtons()
         #         # break
+        y=0
+        while (y<1000):
+            hitstun=MemoryWatcher(self.path)
+            hitstun.startSocket()
+            print (hitstun.getHitStun())
+            y=y+1
 
 
         # self.sideB(True);
@@ -253,7 +259,7 @@ class Controller:
         # self.upTilt()
         # self.upB("0","1")
         # self.dashAttack("left")
-        self.waveDash("left")
+        # self.waveDash("left")
         # self.dashDance()
 
         # timer=MemoryWatcher(self.path)

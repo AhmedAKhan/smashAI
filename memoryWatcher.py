@@ -79,7 +79,22 @@ class MemoryWatcher:
             datagram = self.socket.recv( 1024 )
             datagram = datagram.splitlines();
             region = datagram[0].decode('ascii');
+
             if "00453F20" in region:
+                x=((int(datagram[1].decode('ascii')[:-1],16)))
+                print(x)
+                return(x)
+            else:
+                return 0
+
+
+    def getHitStun(self):
+            datagram = self.socket.recv( 1024 )
+            datagram = datagram.splitlines();
+            region = datagram[0].decode('ascii');
+
+
+            if "23a0" in region:
                 x=((int(datagram[1].decode('ascii')[:-1],16)))
                 print(x)
                 return(x)
