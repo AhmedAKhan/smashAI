@@ -36,11 +36,12 @@ def initialSetup():
 def main():
     initialSetup();
     # bc.main();
-    time.sleep(5);
+    time.sleep(3);
     basicCommands = bc.BasicCommands(memWatcher, controller);
 
     basicCommands.test2()
     controller.releaseButtons();
+
 
     # print("starting");
     # for i in range(3):
@@ -55,8 +56,13 @@ def main():
     #     memWatcher.pauseForTime(100);
 
     # memWatcher.pauseForTime(100);
+<<<<<<< HEAD
     controller.releaseButtons();
     print("done");
+=======
+    # controller.releaseButtons();
+    # print("done");
+>>>>>>> fe0a488cdd51a59e1a88755cf37e1471a0aef134
 
     # while(True):
     #     # basicCommands.test2();

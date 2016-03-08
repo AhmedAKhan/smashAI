@@ -92,13 +92,15 @@ class MemoryWatcher:
             datagram = datagram.splitlines();
             region = datagram[0].decode('ascii');
 
-
-            if "23a0" in region:
+            if region == "00453FC0 23a0":
                 x=((int(datagram[1].decode('ascii')[:-1],16)))
-                print(x)
-                return(x)
+                # x=((int(datagram[1].decode('ascii'),16)))
+                # print("hexcode value: " + str(datagram[1]));
+                print("hitStun value: " + str(x))
+                # return(x)
+                return;
             else:
-                return 0
+                return -1
 
 
 
