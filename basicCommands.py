@@ -107,7 +107,7 @@ class BasicCommands:
                 currentX = self.memoryWatcher.getX();
                 print ("This is the current X",currentX)
                 if ( 1120447161< self.memoryWatcher.getX() <1124447162 ):
-                    # print ("this is the one:",currentX)
+                    print ("this is the one:",self.memoryWatcher.getX())
                     print ("This is the other branch")
                     self.upB("0","1")
                     self.controller.releaseButtons()
@@ -120,14 +120,8 @@ class BasicCommands:
         time.sleep(1)
         self.controller.releaseButtons()
 
-        # testing hit stun
-        # y=0
-        # hitstun=self.memoryWatcher;
-        # while (y<500):
         # while(True):
-            # print (hitstun.getHitStun())
-            # hitstun.getHitStun();
-            # y=y+1
+        #     self.memoryWatcher.getX()
 
         self.recover()
 
