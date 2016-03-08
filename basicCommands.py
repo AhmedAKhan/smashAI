@@ -20,7 +20,7 @@ class BasicCommands:
     # def run (self):
     # def jab (self):
     def upB(self,xCord,yCord):
-        self.memoryWatcher.pauseForTime(10)
+        # self.memoryWatcher.pauseForTime(10)
         self.controller.inputAnalog("MAIN","0.5","1")
         self.memoryWatcher.pauseForTime(30)
         self.controller.inputs("B")
@@ -97,26 +97,33 @@ class BasicCommands:
 
     def recover(self):
        while (True):
-           currentX = self.memoryWatcher.getX();
-           if ( 1120447161< currentX <1124447162 ):
-               print ("this is the one:",currentX)
-               self.upB("0","1")
-               self.controller.releaseButtons()
-           elif (currentX > 3268000000):
-               print ("this is the one:",currentX)
-               self.upB("1","1")
-               self.controller.releaseButtons()
+           # self.memoryWatcher.getHitStun()
+           if (self.memoryWatcher.getHitStun()==0):
+                # currentX = self.memoryWatcher.getX();
+                if ( 1120447161< self.memoryWatcher.getX() <1124447162 ):
+                    # print ("this is the one:",currentX)
+                    self.upB("0","1")
+                    self.controller.releaseButtons()
+                elif (self.memoryWatcher.getX() > 3268000000):
+                    # print ("this is the one:",currentX)
+                    self.upB("1","1")
+                    self.controller.releaseButtons()
+           else:
+               print("is in hitstun")
+               self.memoryWatcher.pauseForTime(30)
 
     def test2(self):
         time.sleep(1)
         self.controller.releaseButtons()
 
-        ## testing hit stun
+       ## testing hit stun
+
         # y=0
-        # hitstun=self.memoryWatcher;
-        # while (y<1000):
-        #     print (hitstun.getHitStun())
+        # xand=self.memoryWatcher;
+        # while (y<50):
+        #     print (xand.getX())
         #     y=y+1
+        self.recover()
 
 
         # self.sideB(True);
