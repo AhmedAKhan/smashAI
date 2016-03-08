@@ -36,25 +36,26 @@ def initialSetup():
 def main():
     initialSetup();
     # bc.main();
-    time.sleep(5);
+    time.sleep(3);
     basicCommands = bc.BasicCommands(memWatcher, controller);
+    basicCommands.test2();
 
-    controller.releaseButtons();
-    print("starting");
-    for i in range(3):
-        print("in the ith: " + str(i) + " time");
-        memWatcher.pauseForTime(100);
-        # basicCommands.upTilt();
-        # basicCommands.roll("right");
-        # basicCommands.dashAttack("left");
-        # basicCommands.waveDash("left");
-        basicCommands.jump(2);
-        controller.releaseButtons();
-        memWatcher.pauseForTime(100);
+    # controller.releaseButtons();
+    # print("starting");
+    # for i in range(3):
+    #     print("in the ith: " + str(i) + " time");
+    #     memWatcher.pauseForTime(100);
+    #     # basicCommands.upTilt();
+    #     # basicCommands.roll("right");
+    #     # basicCommands.dashAttack("left");
+    #     # basicCommands.waveDash("left");
+    #     basicCommands.jump(2);
+    #     controller.releaseButtons();
+    #     memWatcher.pauseForTime(100);
 
-    memWatcher.pauseForTime(100);
-    controller.releaseButtons();
-    print("done");
+    # memWatcher.pauseForTime(100);
+    # controller.releaseButtons();
+    # print("done");
 
     # while(True):
     #     # basicCommands.test2();

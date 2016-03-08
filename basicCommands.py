@@ -111,12 +111,14 @@ class BasicCommands:
         time.sleep(1)
         self.controller.releaseButtons()
 
-        ## testing hit stun
-        # y=0
-        # hitstun=self.memoryWatcher;
-        # while (y<1000):
-        #     print (hitstun.getHitStun())
-        #     y=y+1
+        # testing hit stun
+        y=0
+        hitstun=self.memoryWatcher;
+        # while (y<500):
+        while(True):
+            # print (hitstun.getHitStun())
+            hitstun.getHitStun();
+            y=y+1
 
 
         # self.sideB(True);
