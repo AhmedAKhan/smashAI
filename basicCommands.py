@@ -26,7 +26,7 @@ class BasicCommands:
         self.controller.inputs("B")
         self.memoryWatcher.pauseForTime(2)
         self.controller.inputAnalog("MAIN",xCord,yCord)
-        self.memoryWatcher.pauseForTime(76)
+        self.memoryWatcher.pauseForTime(70)
 
 
     def sideB(self,Shorten):
@@ -98,40 +98,45 @@ class BasicCommands:
     def recover(self):
        while (True):
            # self.memoryWatcher.getHitStun()
-           if (self.memoryWatcher.getHitStun()==0):
-                # currentX = self.memoryWatcher.getX();
+           value = 0;
+           while(True):
+               value = self.memoryWatcher.getHitStun();
+               if( value != -1): break
+           # print (value)
+           if (value < 1000):
+                currentX = self.memoryWatcher.getX();
+                print ("This is the current X",currentX)
                 if ( 1120447161< self.memoryWatcher.getX() <1124447162 ):
                     # print ("this is the one:",currentX)
+                    print ("This is the other branch")
                     self.upB("0","1")
                     self.controller.releaseButtons()
                 elif (self.memoryWatcher.getX() > 3268000000):
-                    # print ("this is the one:",currentX)
+                    print ("This is the X",currentX)
                     self.upB("1","1")
                     self.controller.releaseButtons()
-           else:
-               print("is in hitstun")
-               self.memoryWatcher.pauseForTime(30)
 
     def test2(self):
         time.sleep(1)
         self.controller.releaseButtons()
 
         # testing hit stun
-        y=0
-        hitstun=self.memoryWatcher;
+        # y=0
+        # hitstun=self.memoryWatcher;
         # while (y<500):
-        while(True):
+        # while(True):
             # print (hitstun.getHitStun())
-            hitstun.getHitStun();
-            y=y+1
+            # hitstun.getHitStun();
+            # y=y+1
 
+        self.recover()
 
         # self.sideB(True);
         # self.upSmash()
         # self.shield()
         # self.roll("right")
         # self.upTilt()
-        # self.upB("0","1")
+        # self.upB("0","0")
         # self.dashAttack("left")
         # self.waveDash("left")
         # self.dashDance()

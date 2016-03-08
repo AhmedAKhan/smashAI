@@ -56,13 +56,8 @@ def main():
     #     memWatcher.pauseForTime(100);
 
     # memWatcher.pauseForTime(100);
-<<<<<<< HEAD
-    controller.releaseButtons();
-    print("done");
-=======
     # controller.releaseButtons();
     # print("done");
->>>>>>> fe0a488cdd51a59e1a88755cf37e1471a0aef134
 
     # while(True):
     #     # basicCommands.test2();

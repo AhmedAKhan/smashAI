@@ -98,7 +98,7 @@ class MemoryWatcher:
                 # print("hexcode value: " + str(datagram[1]));
                 print("hitStun value: " + str(x))
                 # return(x)
-                return;
+                return x;
             else:
                 return -1
 
