@@ -98,6 +98,7 @@ class BasicCommands:
     def recover(self):
        while (True):
            # self.memoryWatcher.getHitStun()
+           print ("This is the X please print",self.memoryWatcher.getX())
            if (self.memoryWatcher.getHitStun()==0):
                 # currentX = self.memoryWatcher.getX();
                 if ( 1120447161< self.memoryWatcher.getX() <1124447162 ):
@@ -117,15 +118,16 @@ class BasicCommands:
         self.controller.releaseButtons()
 
         # testing hit stun
-        y=0
-        hitstun=self.memoryWatcher;
+        # y=0
+        # hitstun=self.memoryWatcher;
         # while (y<500):
-        while(True):
-            # print (hitstun.getHitStun())
-            hitstun.getHitStun();
-            y=y+1
+        # while(True):
+        #     # print (hitstun.getHitStun())
+            # hitstun.getHitStun();
+            # y=y+1
 
 
+        self.recover()
         # self.sideB(True);
         # self.upSmash()
         # self.shield()
