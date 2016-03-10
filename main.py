@@ -42,9 +42,9 @@ def main():
     # bc.main();
     basicCommands = bc.BasicCommands(memWatcher, controller);
 
-    # basicCommands.test2()
-    while(True):
-        memWatcher.readMemory();
+    basicCommands.test2()
+    # while(True):
+        # memWatcher.readMemory();
     controller.releaseButtons();
 
 

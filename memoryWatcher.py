@@ -225,7 +225,7 @@ class MemoryWatcher:
             self.adjustValueForPlayer(region, value, "p1", int(inputAddressList[1], 16));
         elif(baseInt == 0x453130): ## player one
             self.adjustValueForPlayer(region, value, "p2", int(inputAddressList[1], 16));
-        self.printState();
+        # self.printState();
     def readMemory(self):
         if(not self.socket):
             print("the socket has not been created yet please create it before calling the pauseForTime function");
