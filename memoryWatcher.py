@@ -112,7 +112,6 @@ class MemoryWatcher:
             print("the socket has not been created yet please create it before calling the pauseForTime function");
             return;
         # print("inside the pause for delay");
-        self.readMemory();
         numberOfFramesPassed = 0;
         startingFrame = -1;
         while(True):
@@ -121,6 +120,7 @@ class MemoryWatcher:
             datagram = datagram.splitlines();
             region = datagram[0].decode('ascii');
             value = int(datagram[1][0:-1],16); ## remove the last null character
+            self.readMemory();
             if(region != "00479D60"): continue;
 
             numberOfFramesPassed += 1;
@@ -174,7 +174,7 @@ class MemoryWatcher:
     def adjustValueForPlayer(self, region, value, player, ptrInt):
         def convertToInt(value, shiftVal): return int(value, 16) >> shiftVal;
         def convertToBool(value, shiftVal): return bool(int(value, 16) >> shiftVal);
-        def convertToFloat(value): struct.unpack('f',struct.pack('I',int(value,16)))
+        def convertToFloat(value): struct.unpack('f',struct.pack('I',int(value,16)))[0];
 
         if(ptrInt == 0x70): self.state[player]["action"] = convertToInt(value,0);
         elif(ptrInt == 0x20CC): self.state[player]["actionCounter"] = convertToInt(value,0);
@@ -195,7 +195,7 @@ class MemoryWatcher:
     def adjustValue(self, region, value):
         def convertToInt(value, shiftVal): return int(value, 16) >> shiftVal;
         def convertToBool(value, shiftVal): return bool(int(value, 16) >> shiftVal);
-        def convertToFloat(value): return struct.unpack('f',struct.pack('I',int(value,16)));
+        def convertToFloat(value): return struct.unpack('f',struct.pack('I',int(value,16)))[0];
         value = value[0:-1];
         # print("region: ", region);
         inputAddressList = region.split(" ");

@@ -156,7 +156,7 @@ class BasicCommands:
                     # currentY = self.memoryWatcher.getX(self.p2y);
                     curX = self.memoryWatcher.state['p2']['x'];
                     curY = self.memoryWatcher.state['p2']['y'];
-                    print (curX)
+                    print ("curX: ",curX)
                     if ( 88< curX <100 ):
                         self.recoveryHelper("left","left")
                     elif (curX < -88):
