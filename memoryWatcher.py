@@ -132,7 +132,6 @@ class MemoryWatcher:
                 print("exiting because of condition 1");
                 return;
 
-            ###
             if(numberOfFramesPassed >= delay):
                 print("exiting because of condition 2");
                 return;
@@ -143,17 +142,18 @@ class MemoryWatcher:
             return;
 
 
-    def getX(self):
-            datagram = self.socket.recv( 1024 )
-            datagram = datagram.splitlines();
-            region = datagram[0].decode('ascii');
+    def getX(self,address):
+            while(True):
 
-            if "00453F20" in region:
-                x=((int(datagram[1].decode('ascii')[:-1],16)))
-                print(x)
-                return(x)
-            else:
-                return 0
+                datagram = self.socket.recv( 1024 )
+                datagram = datagram.splitlines();
+                region = datagram[0].decode('ascii');
+
+
+                if address in region:
+                    x=((int(datagram[1].decode('ascii')[:-1],16)))
+                    print(x)
+                    return(x)
 
 
     def getHitStun(self):
@@ -165,9 +165,9 @@ class MemoryWatcher:
                 x=((int(datagram[1].decode('ascii')[:-1],16)))
                 # x=((int(datagram[1].decode('ascii'),16)))
                 # print("hexcode value: " + str(datagram[1]));
-                print("hitStun value: " + str(x))
+                # print("hitStun value: " + str(x))
                 # return(x)
-                return;
+                return x;
             else:
                 return -1
 
