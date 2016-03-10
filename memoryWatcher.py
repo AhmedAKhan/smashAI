@@ -45,7 +45,6 @@ class MemoryWatcher:
                 "speedXAttack":0,
                 "speedYAttack":0,
                 "speedGroundX":0,
-
                 "damage":100,
                 "stocks":4,
                 "facingLeft":True,
@@ -68,14 +67,12 @@ class MemoryWatcher:
                 "speedXAttack":0,
                 "speedYAttack":0,
                 "speedGroundX":0,
-
                 "damage":100,
                 "stocks":4,
                 "facingLeft":True,
                 "character":0,
                 "x":0,
                 "y":0,
-
                 "cursorX":0,
                 "cursorY":0
             },
@@ -115,9 +112,9 @@ class MemoryWatcher:
             print("the socket has not been created yet please create it before calling the pauseForTime function");
             return;
         # print("inside the pause for delay");
+        self.readMemory();
         numberOfFramesPassed = 0;
         startingFrame = -1;
-        # print("still paused");
         while(True):
             datagram = self.socket.recv( 1024 ) # get the information from the socket
             # print (datagram)
@@ -130,14 +127,20 @@ class MemoryWatcher:
             if(startingFrame == -1):
                 startingFrame = value;
 
-            print("number of frames passed: " + str(numberOfFramesPassed), "delay: ", delay, "value: ", value, "startingFrame: ", startingFrame)
-            # if(value >= startingFrame + delay):
-            #     print("exiting because of condition 1");
-            #     return;
+            # print("number of frames passed: " + str(numberOfFramesPassed), "delay: ", delay, "value: ", value, "startingFrame: ", startingFrame)
+            if(value >= startingFrame + delay):
+                print("exiting because of condition 1");
+                return;
 
+            ###
             if(numberOfFramesPassed >= delay):
                 print("exiting because of condition 2");
                 return;
+
+    def pauseForTime2(self, delay):
+        if(not self.socket):
+            print("the socket has not been created yet please create it before calling the pauseForTime function");
+            return;
 
 
     def getX(self):
@@ -233,6 +236,7 @@ class MemoryWatcher:
         region = datagram[0].decode('ascii');
         value = datagram[1];
         self.adjustValue(region, value);
+
 
 
 
