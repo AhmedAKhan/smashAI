@@ -36,7 +36,6 @@ def initialSetup():
 def main():
     initialSetup();
     # bc.main();
-    time.sleep(3);
     basicCommands = bc.BasicCommands(memWatcher, controller);
 
     basicCommands.test2()
