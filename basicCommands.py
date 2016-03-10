@@ -1,4 +1,4 @@
-import time;
+from memoryWatcher import MemoryWatcher;
 
 
 class BasicCommands:
@@ -90,8 +90,10 @@ class BasicCommands:
 
     #pass in 2 frames for short hop, 3 or more for full hop
     def jump(self,pauseTime):
-        self.controller.inputs("X");
+        # timer = MemoryWatcher('/Users/ahmed/Library/Application Support/Dolphin');
+        # timer.startSocket();
         timer = self.memoryWatcher;
+        self.controller.inputs("X");
         timer.pauseForTime(pauseTime)
         self.controller.releaseButtons();
 
@@ -114,7 +116,7 @@ class BasicCommands:
                self.memoryWatcher.pauseForTime(30)
 
     def test2(self):
-        time.sleep(1)
+        time.pauseForTime(60 * 2);
         self.controller.releaseButtons()
 
         # testing hit stun
@@ -127,7 +129,10 @@ class BasicCommands:
             # y=y+1
 
 
-        self.recover()
+        # self.recover()
+        # self.jump(7);
+        self.jump(2);
+
         # self.sideB(True);
         # self.upSmash()
         # self.shield()

@@ -25,22 +25,28 @@ def findDolphinPath():
     return homePath;
 
 
-memWatcher = MemoryWatcher(findDolphinPath());
-controller = Controller(findDolphinPath());
+memWatcher = None; # MemoryWatcher(findDolphinPath());
+controller = None; # Controller(findDolphinPath());
 
 
 def initialSetup():
+    global memWatcher;
+    global controller;
+    memWatcher = MemoryWatcher(findDolphinPath());
     memWatcher.startSocket();
+    controller = Controller(findDolphinPath());
     return;
 
 def main():
     initialSetup();
     # bc.main();
-    time.sleep(3);
+    print("memWatcher", memWatcher, "controller: ", controller);
     basicCommands = bc.BasicCommands(memWatcher, controller);
 
     basicCommands.test2()
-    controller.releaseButtons();
+    # while(True):
+    #     memWatcher.readMemory();
+    # controller.releaseButtons();
 
 
     # print("starting");

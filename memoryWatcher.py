@@ -29,7 +29,7 @@ class MemoryWatcher:
         self.socket = sc.socket(sc.AF_UNIX, sc.SOCK_DGRAM, 0);
         self.path = path; # the path to where dolphin emulator is stored
         self.createEmptyState();
-    def createEmptyState():
+    def createEmptyState(self):
         self.state = {
             "playerOne":{
                 "action":0,
@@ -119,17 +119,27 @@ class MemoryWatcher:
             return;
         # print("inside the pause for delay");
         numberOfFramesPassed = 0;
+        startingFrame = -1;
         # print("still paused");
         while(True):
             datagram = self.socket.recv( 1024 ) # get the information from the socket
             # print (datagram)
             datagram = datagram.splitlines();
             region = datagram[0].decode('ascii');
+            value = int(datagram[1][0:-1],16); ## remove the last null character
+            if(region != "00479D60"): continue;
 
-            if(region == "00479D60"):
-                numberOfFramesPassed += 1;
-                # print("number of frames passed: " + str(numberOfFramesPassed))
+            numberOfFramesPassed += 1;
+            if(startingFrame == -1):
+                startingFrame = value;
+
+            print("number of frames passed: " + str(numberOfFramesPassed), "delay: ", delay, "value: ", value, "startingFrame: ", startingFrame)
+            # if(value >= startingFrame + delay):
+            #     print("exiting because of condition 1");
+            #     return;
+
             if(numberOfFramesPassed >= delay):
+                print("exiting because of condition 2");
                 return;
 
 
@@ -161,15 +171,19 @@ class MemoryWatcher:
             else:
                 return -1
 
-    def adjustValue(self, resion, value):
-        if(region.find(" ") != -1):
-            baseInt = "";
-            if(baseInt == "0x453130"):
-                print("");
-            elif(baseInt == "asdasd"):
-                print("");
-        else:
-            print("");
+    def adjustValue(self, region, value):
+        # print("region: ", region, "value:",value);
+        if(region == "00479D60"):
+            print("value: ",value, "currentFrame: ", int(value[0:-1],16));
+
+        # if(region.find(" ") != -1):
+        #     baseInt = "";
+        #     if(baseInt == "0x453130"):
+        #         print("");
+        #     elif(baseInt == "asdasd"):
+        #         print("");
+        # else:
+        #     print("");
 
     def readMemory(self):
         if(not self.socket):
@@ -180,7 +194,7 @@ class MemoryWatcher:
         datagram = datagram.splitlines();
         region = datagram[0].decode('ascii');
         value = datagram[1];
-        adjustValue(region, value);
+        self.adjustValue(region, value);
 
 
 
