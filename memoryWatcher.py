@@ -1,4 +1,5 @@
 import os;
+import struct;
 import socket as sc;
 import debugger as dgr;
 
@@ -167,15 +168,18 @@ class MemoryWatcher:
             else:
                 return -1
 
-    def adjustValueForPlayer(self, region, value, player):
-        ptrInt = int(inputAddressList[1], 16);
+    def adjustValueForPlayer(self, region, value, player, ptrInt):
+        def convertToInt(value, shiftVal): return int(value, 16) >> shiftVal;
+        def convertToBool(value, shiftVal): return bool(int(value, 16) >> shiftVal);
+        def convertToFloat(value): return value;  ## struct.unpack('f',struct.pack('i',int(value,16)))
+
         if(ptrInt == 0x70): self.state[player]["action"] = convertToInt(value,0);
         elif(ptrInt == 0x20CC): self.state[player]["actionCounter"] = convertToInt(value,0);
         elif(ptrInt == 0x8F4): self.state[player]["actionFrame"] = convertToFloat(value);
         elif(ptrInt == 0x19EC): self.state[player]["invulnerable"] = convertToBool(value,0);
         elif(ptrInt == 0x19BC): self.state[player]["hitlagFramesLeft"] = convertToFloat(value);
         elif(ptrInt == 0x23A0): self.state[player]["hitstunFramesLeft"] = convertToFloat(value);
-        elif(ptrInt == 0x2174): self.state[player]["isChargingSmash"] = convertToBool(value);
+        elif(ptrInt == 0x2174): self.state[player]["isChargingSmash"] = convertToBool(value,0);
         elif(ptrInt == 0x19C8): self.state[player]["jumpsRemaining"] = (0 if convertToInt(value, 24) > 1 else convertToInt(value, 24)); ## this wont work for characters with multiple jumps
         elif(ptrInt == 0x140): self.state[player]["isOnGround"] = convertToBool(value, 0);
         elif(ptrInt == 0xE0): self.state[player]["speedAirX"] = convertToFloat(value);
@@ -186,54 +190,57 @@ class MemoryWatcher:
         else: print("WARNING: got an expected memory address", ptrInt);
 
     def adjustValue(self, region, value):
+
         def convertToInt(value, shiftVal): return int(value, 16) >> shiftVal;
         def convertToBool(value, shiftVal): return bool(int(value, 16) >> shiftVal);
-        def convertToFloat(value): return struct.unpack('f',struct.pack('i',int(value,16)))
-
+        def convertToFloat(value): return value;  ## struct.unpack('f',struct.pack('i',int(value,16)))
         value = value[0:-1];
+        # print("region: ", region);
         inputAddressList = region.split(" ");
+        # print("region: ", region, "value", value);
         baseInt = int(inputAddressList[0],16);
         if(len(inputAddressList) == 1): ## its a direct pointer
-            if(value == 0x479D60): self.state["frame"] = convertToInt(value, 0)
+            region = baseInt;
+            if(region == 0x479D60): self.state["frame"] = convertToInt(value, 0)
 
-            elif(value == 0x4530E0): self.state["p1"]["damage"] = convertToInt(value, 16);
-            elif(value == 0x453F70): self.state["p2"]["damage"] = convertToInt(value, 16);
+            elif(region == 0x4530E0): self.state["p1"]["damage"] = convertToInt(value, 16);
+            elif(region == 0x453F70): self.state["p2"]["damage"] = convertToInt(value, 16);
 
-            elif(value == 0x45310E): self.state["p1"]["stock"] = convertToInt(value, 24);
-            elif(value == 0x453F9E): self.state["p2"]["stock"] = convertToInt(value, 24);
+            elif(region == 0x45310E): self.state["p1"]["stock"] = convertToInt(value, 24);
+            elif(region == 0x453F9E): self.state["p2"]["stock"] = convertToInt(value, 24);
 
-            elif(value == 0x4530C0): self.state["p1"]["facing"] = convertToBool(value, 31);
-            elif(value == 0x453F50): self.state["p2"]["facing"] = convertToBool(value, 31);
+            elif(region == 0x4530C0): self.state["p1"]["facing"] = convertToBool(value, 31);
+            elif(region == 0x453F50): self.state["p2"]["facing"] = convertToBool(value, 31);
 
-            elif(value == 0x453090): self.state["p1"]["x"] = convertToFloat(value);
-            elif(value == 0x453F20): self.state["p2"]["x"] = convertToFloat(value);
+            elif(region == 0x453090): self.state["p1"]["x"] = convertToFloat(value);
+            elif(region == 0x453F20): self.state["p2"]["x"] = convertToFloat(value);
 
-            elif(value == 0x453F20): self.state["p1"]["y"] = convertToFloat(value);
-            elif(value == 0x453F24): self.state["p2"]["y"] = convertToFloat(value);
+            elif(region == 0x453F20): self.state["p1"]["y"] = convertToFloat(value);
+            elif(region == 0x453F24): self.state["p2"]["y"] = convertToFloat(value);
 
-            elif(value == 0x3F0E0A): self.state["p1"]["character"] = convertToInt(value, 24);
-            elif(value == 0x3F0E0A): self.state["p2"]["character"] = convertToInt(value, 24);
+            elif(region == 0x3F0E0A): self.state["p1"]["character"] = convertToInt(value, 24);
+            elif(region == 0x3F0E0A): self.state["p2"]["character"] = convertToInt(value, 24);
 
-            elif(value == 0x479d30): self.state["menu"] = convertToInt(value, 0);
-            elif(value == 0x4D6CAD): self.state["stage"] = convertToInt(value, 16);
+            elif(region == 0x479d30): self.state["menu"] = convertToInt(value, 0);
+            elif(region == 0x4D6CAD): self.state["stage"] = convertToInt(value, 16);
 
-            elif(value == 0x0111826C): self.state["p2"]["curosrX"] = convertToFloat(value);
-            elif(value == 0x01118270): self.state["p2"]["curosrX"] = convertToFloat(value);
+            elif(region == 0x0111826C): self.state["p2"]["curosrX"] = convertToFloat(value);
+            elif(region == 0x01118270): self.state["p2"]["curosrX"] = convertToFloat(value);
             # elif(value == 0x003F0E08): print("i dont know what this is ");
         elif(baseInt == 0x453FC0): ## player two
-            self.adjustValueForPlayer(region, value, "p1");
+            self.adjustValueForPlayer(region, value, "p1", int(inputAddressList[1], 16));
         elif(baseInt == 0x453130): ## player one
-            self.adjustValueForPlayer(region, value, "p2");
-
-    def printState():
+            self.adjustValueForPlayer(region, value, "p2", int(inputAddressList[1], 16));
+        self.printState();
+    def printState(self):
         print("current frame number: ", self.state["frame"]);
         print("stage: ", self.state["stage"]);
 
-        print("p1 x: ", self.stage["p1"]["x"]);
-        print("p1 y: ", self.stage["p1"]["y"]);
+        print("p1 x: ", self.state["p1"]["x"]);
+        print("p1 y: ", self.state["p1"]["y"]);
 
-        print("p2 x: ", self.stage["p2"]["x"]);
-        print("p2 y: ", self.stage["p2"]["y"]);
+        print("p2 x: ", self.state["p2"]["x"]);
+        print("p2 y: ", self.state["p2"]["y"]);
     def readMemory(self):
         if(not self.socket):
             print("the socket has not been created yet please create it before calling the pauseForTime function");
