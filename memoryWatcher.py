@@ -167,6 +167,24 @@ class MemoryWatcher:
             else:
                 return -1
 
+    def adjustValueForPlayer(self, region, value, player):
+        ptrInt = int(inputAddressList[1], 16);
+        if(ptrInt == 0x70): self.state[player]["action"] = convertToInt(value,0);
+        elif(ptrInt == 0x20CC): self.state[player]["actionCounter"] = convertToInt(value,0);
+        elif(ptrInt == 0x8F4): self.state[player]["actionFrame"] = convertToFloat(value);
+        elif(ptrInt == 0x19EC): self.state[player]["invulnerable"] = convertToBool(value,0);
+        elif(ptrInt == 0x19BC): self.state[player]["hitlagFramesLeft"] = convertToFloat(value);
+        elif(ptrInt == 0x23A0): self.state[player]["hitstunFramesLeft"] = convertToFloat(value);
+        elif(ptrInt == 0x2174): self.state[player]["isChargingSmash"] = convertToBool(value);
+        elif(ptrInt == 0x19C8): self.state[player]["jumpsRemaining"] = (0 if convertToInt(value, 24) > 1 else convertToInt(value, 24)); ## this wont work for characters with multiple jumps
+        elif(ptrInt == 0x140): self.state[player]["isOnGround"] = convertToBool(value, 0);
+        elif(ptrInt == 0xE0): self.state[player]["speedAirX"] = convertToFloat(value);
+        elif(ptrInt == 0xE4): self.state[player]["speedAirY"] = convertToFloat(value);
+        elif(ptrInt == 0xEC): self.state[player]["speedAttackX"] = convertToFloat(value);
+        elif(ptrInt == 0xF0): self.state[player]["speedAttackY"] = convertToFloat(value);
+        elif(ptrInt == 0x14C): self.state[player]["speedGroundX"] = convertToFloat(value);
+        else: print("WARNING: got an expected memory address", ptrInt);
+
     def adjustValue(self, region, value):
 
         def convertToInt(value, shiftVal): return int(value, 16) >> shiftVal;
@@ -207,19 +225,9 @@ class MemoryWatcher:
             elif(value == 0x01118270): self.state["p2"]["curosrX"] = convertToFloat(value);
             # elif(value == 0x003F0E08): print("i dont know what this is ");
         elif(baseInt == 0x453FC0): ## player two
-            ptrInt = int(inputAddressList[1], 16);
-            if(ptrInt == 0x70): self.state["p1"]["action"] = convertToInt(value,0);
-            elif(ptrInt == 0x20CC): self.state["p1"]["actionCounter"] = convertToInt(value,0);
-            elif(ptrInt == 0x8F4): self.state["p1"]["actionFrame"] = convertToFloat(value);
-            elif(ptrInt == 0x19EC): self.state["p1"]["invulnerable"] = convertToBool(value,0);
-            elif(ptrInt == 0x19BC): self.state["p1"]["hitlagFramesLeft"] = convertToFloat(value);
-            elif(ptrInt == 0x19BC): self.state["p1"]["hitlag"] = convertToFloat(value);
-
-
-
+            self.adjustValueForPlayer(region, value, "p1");
         elif(baseInt == 0x453130): ## player one
-
-
+            self.adjustValueForPlayer(region, value, "p2");
 
         # def convertValueToInt(value):
         #     return int(value, 16);
