@@ -159,12 +159,13 @@ class BasicCommands:
                     print ("curX: ",curX)
                     if ( 88< curX <100 ):
                         self.recoveryHelper("left","left")
-                    elif (curX < -88):
+                    elif (curX < -93):
                         # if (randint(0,10)<5):
                         self.recoveryHelper("right","right")
                         # else:
                         if (curY>0): self.sideB(False,"right")
                         else: self.upB("1","0.5")
+                    self.controller.releaseButtons();
 
     def recoveryHelper(self,jumpDir,upBdir):
                 self.memoryWatcher.pauseForTime(10)
