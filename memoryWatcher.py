@@ -190,13 +190,9 @@ class MemoryWatcher:
         else: print("WARNING: got an expected memory address", ptrInt);
 
     def adjustValue(self, region, value):
-
         def convertToInt(value, shiftVal): return int(value, 16) >> shiftVal;
         def convertToBool(value, shiftVal): return bool(int(value, 16) >> shiftVal);
-        def convertToFloat(value):
-            if(type(value) != int): value = int(value, 16);
-            return struct.unpack('f',struct.pack('I',value));
-            # return value; #struct.unpack('f',struct.pack('i',int(value,16)))
+        def convertToFloat(value): return struct.unpack('f',struct.pack('I',int(value,16)));
         value = value[0:-1];
         # print("region: ", region);
         inputAddressList = region.split(" ");
