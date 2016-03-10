@@ -43,10 +43,10 @@ def main():
     print("memWatcher", memWatcher, "controller: ", controller);
     basicCommands = bc.BasicCommands(memWatcher, controller);
 
-    basicCommands.test2()
-    # while(True):
-    #     memWatcher.readMemory();
-    # controller.releaseButtons();
+    # basicCommands.test2()
+    while(True):
+        memWatcher.readMemory();
+    controller.releaseButtons();
 
 
     # print("starting");

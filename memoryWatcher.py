@@ -1,8 +1,6 @@
 import os;
 import socket as sc;
 import debugger as dgr;
-import binascii;
-import time;
 
 """
     This is how dolphines memory watcher uses the data
@@ -31,7 +29,7 @@ class MemoryWatcher:
         self.createEmptyState();
     def createEmptyState(self):
         self.state = {
-            "playerOne":{
+            "p1":{
                 "action":0,
                 "actionCounter":0,
                 "actionFrame":0,
@@ -51,12 +49,10 @@ class MemoryWatcher:
                 "stocks":4,
                 "facingLeft":True,
                 "character":0,
-                "menuState":0,
-                "Stage":0,
                 "x":0,
                 "y":0
             },
-            "playerTwo":{
+            "p2":{
                 "action":0,
                 "actionCounter":0,
                 "actionFrame":0,
@@ -76,15 +72,15 @@ class MemoryWatcher:
                 "stocks":4,
                 "facingLeft":True,
                 "character":0,
-                "menuState":0,
-                "Stage":0,
                 "x":0,
                 "y":0,
 
                 "cursorX":0,
                 "cursorY":0
             },
-            "Frame":0,
+            "frame":0,
+            "menuState":0,
+            "stage":0
         };
 
     def startSocket(self):
@@ -172,9 +168,68 @@ class MemoryWatcher:
                 return -1
 
     def adjustValue(self, region, value):
+
+        def convertToInt(value, shiftVal): return int(value, 16) >> shiftVal;
+        def convertToBool(value, shiftVal): return bool(int(value, 16) >> shiftVal);
+        def convertToFloat(value): return struct.unpack('f',struct.pack('i',int(value,16)))
+
         # print("region: ", region, "value:",value);
-        if(region == "00479D60"):
-            print("value: ",value, "currentFrame: ", int(value[0:-1],16));
+        # if(region == "00479D60"):
+        #     print("value: ",value, "currentFrame: ", int(value[0:-1],16));
+        value = value[0:-1];
+        inputAddressList = region.split(" ");
+        baseInt = int(inputAddressList[0],16);
+        if(len(inputAddressList) == 1): ## its a direct pointer
+            if(value == 0x479D60): self.state["frame"] = convertToInt(value, 0)
+
+            elif(value == 0x4530E0): self.state["p1"]["damage"] = convertToInt(value, 16);
+            elif(value == 0x453F70): self.state["p2"]["damage"] = convertToInt(value, 16);
+
+            elif(value == 0x45310E): self.state["p1"]["stock"] = convertToInt(value, 24);
+            elif(value == 0x453F9E): self.state["p2"]["stock"] = convertToInt(value, 24);
+
+            elif(value == 0x4530C0): self.state["p1"]["facing"] = convertToBool(value, 31);
+            elif(value == 0x453F50): self.state["p2"]["facing"] = convertToBool(value, 31);
+
+            elif(value == 0x453090): self.state["p1"]["x"] = convertToFloat(value);
+            elif(value == 0x453F20): self.state["p2"]["x"] = convertToFloat(value);
+
+            elif(value == 0x453F20): self.state["p1"]["y"] = convertToFloat(value);
+            elif(value == 0x453F24): self.state["p2"]["y"] = convertToFloat(value);
+
+            elif(value == 0x3F0E0A): self.state["p1"]["character"] = convertToInt(value, 24);
+            elif(value == 0x3F0E0A): self.state["p2"]["character"] = convertToInt(value, 24);
+
+            elif(value == 0x479d30): self.state["menu"] = convertToInt(value, 0);
+            elif(value == 0x4D6CAD): self.state["stage"] = convertToInt(value, 16);
+
+            elif(value == 0x0111826C): self.state["p2"]["curosrX"] = convertToFloat(value);
+            elif(value == 0x01118270): self.state["p2"]["curosrX"] = convertToFloat(value);
+            # elif(value == 0x003F0E08): print("i dont know what this is ");
+        elif(baseInt == 0x453FC0): ## player two
+            ptrInt = int(inputAddressList[1], 16);
+            if(ptrInt == 0x70): self.state["p1"]["action"] = convertToInt(value,0);
+            elif(ptrInt == 0x20CC): self.state["p1"]["actionCounter"] = convertToInt(value,0);
+            elif(ptrInt == 0x8F4): self.state["p1"]["actionFrame"] = convertToFloat(value);
+            elif(ptrInt == 0x19EC): self.state["p1"]["invulnerable"] = convertToBool(value,0);
+            elif(ptrInt == 0x19BC): self.state["p1"]["hitlagFramesLeft"] = convertToFloat(value);
+            elif(ptrInt == 0x19BC): self.state["p1"]["hitlag"] = convertToFloat(value);
+
+
+
+        elif(baseInt == 0x453130): ## player one
+
+
+
+        # def convertValueToInt(value):
+        #     return int(value, 16);
+
+        # changedValue = {
+        #     "00479D60":"currentFrame",
+        #     "00453130":"PlayerOne",
+        #     ""
+        # };
+        # changedValue[region](parsedValue);
 
         # if(region.find(" ") != -1):
         #     baseInt = "";
