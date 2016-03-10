@@ -161,13 +161,27 @@ class MemoryWatcher:
             else:
                 return -1
 
-    def adjustValue(resion, value):
-        if(region.find(" ") != -1)
+    def adjustValue(self, resion, value):
+        if(region.find(" ") != -1):
             baseInt = "";
             if(baseInt == "0x453130"):
                 print("");
-            else if()
+            elif(baseInt == "asdasd"):
+                print("");
         else:
+            print("");
+
+    def readMemory(self):
+        if(not self.socket):
+            print("the socket has not been created yet please create it before calling the pauseForTime function");
+            return;
+        datagram = self.socket.recv( 1024 ) # get the information from the socket
+        # print (datagram)
+        datagram = datagram.splitlines();
+        region = datagram[0].decode('ascii');
+        value = datagram[1];
+        adjustValue(region, value);
+
 
 
 
