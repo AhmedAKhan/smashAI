@@ -28,6 +28,65 @@ class MemoryWatcher:
     def __init__(self, path):
         self.socket = sc.socket(sc.AF_UNIX, sc.SOCK_DGRAM, 0);
         self.path = path; # the path to where dolphin emulator is stored
+        self.createEmptyState();
+    def createEmptyState():
+        self.state = {
+            "playerOne":{
+                "action":0,
+                "actionCounter":0,
+                "actionFrame":0,
+                "invulnerable":False,
+                "hitlagFramesLeft":0,
+                "hitStunFramesLeft":0,
+                "isChargingSmash":False,
+                "jumpsRemaining":0,
+                "isOnGround":True,
+                "speedAirX":0,
+                "speedAirY":0,
+                "speedXAttack":0,
+                "speedYAttack":0,
+                "speedGroundX":0,
+
+                "damage":100,
+                "stocks":4,
+                "facingLeft":True,
+                "character":0,
+                "menuState":0,
+                "Stage":0,
+                "x":0,
+                "y":0
+            },
+            "playerTwo":{
+                "action":0,
+                "actionCounter":0,
+                "actionFrame":0,
+                "invulnerable":False,
+                "hitlagFramesLeft":0,
+                "hitStunFramesLeft":0,
+                "isChargingSmash":False,
+                "jumpsRemaining":0,
+                "isOnGround":True,
+                "speedAirX":0,
+                "speedAirY":0,
+                "speedXAttack":0,
+                "speedYAttack":0,
+                "speedGroundX":0,
+
+                "damage":100,
+                "stocks":4,
+                "facingLeft":True,
+                "character":0,
+                "menuState":0,
+                "Stage":0,
+                "x":0,
+                "y":0,
+
+                "cursorX":0,
+                "cursorY":0
+            },
+            "Frame":0,
+        };
+
     def startSocket(self):
         socketPath =  self.path + "/MemoryWatcher" + '/MemoryWatcher' # this is the path to the socket
         ### make sure the socket does not already exist
@@ -101,6 +160,16 @@ class MemoryWatcher:
                 return;
             else:
                 return -1
+
+    def adjustValue(resion, value):
+        if(region.find(" ") != -1)
+            baseInt = "";
+            if(baseInt == "0x453130"):
+                print("");
+            else if()
+        else:
+
+
 
 
 
