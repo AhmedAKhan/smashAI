@@ -152,20 +152,19 @@ class BasicCommands:
                         self.controller.releaseButtons()
 
                else:
-                    currentX = self.memoryWatcher.getX(self.p2x);
-                    currentY = self.memoryWatcher.getX(self.p2y);
-                    # curX = self.memoryWatcher.state['p2']['x'];
-                    # curY = self.memoryWatcher.state['p2']['y'];
-
-                    print (currentX)
-                    if ( 1120447161< currentX <1134447162 ):
+                    # currentX = self.memoryWatcher.getX(self.p2x);
+                    # currentY = self.memoryWatcher.getX(self.p2y);
+                    curX = self.memoryWatcher.state['p2']['x'];
+                    curY = self.memoryWatcher.state['p2']['y'];
+                    print (curX)
+                    if ( 88< curX <100 ):
                         self.recoveryHelper("left","left")
-                    elif (currentX > 3270000000):
+                    elif (curX < -88):
                         # if (randint(0,10)<5):
                         self.recoveryHelper("right","right")
                         # else:
-                        #     if (currentY<1000000000): self.sideB(False,"right")
-                        #     else: self.upB("1","0.5")
+                        if (curY>0): self.sideB(False,"right")
+                        else: self.upB("1","0.5")
 
     def recoveryHelper(self,jumpDir,upBdir):
                 self.memoryWatcher.pauseForTime(10)

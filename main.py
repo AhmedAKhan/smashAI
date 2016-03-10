@@ -40,10 +40,6 @@ def initialSetup():
 def main():
     initialSetup();
     # bc.main();
-<<<<<<< HEAD
-    print("memWatcher", memWatcher, "controller: ", controller);
-=======
->>>>>>> ff31d1fd9ffbba921fd54730c1a6103fcd414492
     basicCommands = bc.BasicCommands(memWatcher, controller);
 
     # basicCommands.test2()
@@ -67,10 +63,7 @@ def main():
     # memWatcher.pauseForTime(100);
     # controller.releaseButtons();
     # print("done");
-<<<<<<< HEAD
-=======
 
->>>>>>> ff31d1fd9ffbba921fd54730c1a6103fcd414492
     # while(True):
     #     # basicCommands.test2();
     #     basicCommands.recover();
