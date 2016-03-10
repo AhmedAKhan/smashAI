@@ -186,14 +186,10 @@ class MemoryWatcher:
         else: print("WARNING: got an expected memory address", ptrInt);
 
     def adjustValue(self, region, value):
-
         def convertToInt(value, shiftVal): return int(value, 16) >> shiftVal;
         def convertToBool(value, shiftVal): return bool(int(value, 16) >> shiftVal);
         def convertToFloat(value): return struct.unpack('f',struct.pack('i',int(value,16)))
 
-        # print("region: ", region, "value:",value);
-        # if(region == "00479D60"):
-        #     print("value: ",value, "currentFrame: ", int(value[0:-1],16));
         value = value[0:-1];
         inputAddressList = region.split(" ");
         baseInt = int(inputAddressList[0],16);
@@ -229,25 +225,15 @@ class MemoryWatcher:
         elif(baseInt == 0x453130): ## player one
             self.adjustValueForPlayer(region, value, "p2");
 
-        # def convertValueToInt(value):
-        #     return int(value, 16);
+    def printState():
+        print("current frame number: ", self.state["frame"]);
+        print("stage: ", self.state["stage"]);
 
-        # changedValue = {
-        #     "00479D60":"currentFrame",
-        #     "00453130":"PlayerOne",
-        #     ""
-        # };
-        # changedValue[region](parsedValue);
+        print("p1 x: ", self.stage["p1"]["x"]);
+        print("p1 y: ", self.stage["p1"]["y"]);
 
-        # if(region.find(" ") != -1):
-        #     baseInt = "";
-        #     if(baseInt == "0x453130"):
-        #         print("");
-        #     elif(baseInt == "asdasd"):
-        #         print("");
-        # else:
-        #     print("");
-
+        print("p2 x: ", self.stage["p2"]["x"]);
+        print("p2 y: ", self.stage["p2"]["y"]);
     def readMemory(self):
         if(not self.socket):
             print("the socket has not been created yet please create it before calling the pauseForTime function");
