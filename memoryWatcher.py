@@ -193,7 +193,10 @@ class MemoryWatcher:
 
         def convertToInt(value, shiftVal): return int(value, 16) >> shiftVal;
         def convertToBool(value, shiftVal): return bool(int(value, 16) >> shiftVal);
-        def convertToFloat(value): return value;  ## struct.unpack('f',struct.pack('i',int(value,16)))
+        def convertToFloat(value):
+            if(type(value) != int): value = int(value, 16);
+            return struct.unpack('f',struct.pack('I',value));
+            # return value; #struct.unpack('f',struct.pack('i',int(value,16)))
         value = value[0:-1];
         # print("region: ", region);
         inputAddressList = region.split(" ");
@@ -202,28 +205,20 @@ class MemoryWatcher:
         if(len(inputAddressList) == 1): ## its a direct pointer
             region = baseInt;
             if(region == 0x479D60): self.state["frame"] = convertToInt(value, 0)
-
             elif(region == 0x4530E0): self.state["p1"]["damage"] = convertToInt(value, 16);
             elif(region == 0x453F70): self.state["p2"]["damage"] = convertToInt(value, 16);
-
             elif(region == 0x45310E): self.state["p1"]["stock"] = convertToInt(value, 24);
             elif(region == 0x453F9E): self.state["p2"]["stock"] = convertToInt(value, 24);
-
             elif(region == 0x4530C0): self.state["p1"]["facing"] = convertToBool(value, 31);
             elif(region == 0x453F50): self.state["p2"]["facing"] = convertToBool(value, 31);
-
             elif(region == 0x453090): self.state["p1"]["x"] = convertToFloat(value);
             elif(region == 0x453F20): self.state["p2"]["x"] = convertToFloat(value);
-
-            elif(region == 0x453F20): self.state["p1"]["y"] = convertToFloat(value);
+            elif(region == 0x453094): self.state["p1"]["y"] = convertToFloat(value);
             elif(region == 0x453F24): self.state["p2"]["y"] = convertToFloat(value);
-
             elif(region == 0x3F0E0A): self.state["p1"]["character"] = convertToInt(value, 24);
             elif(region == 0x3F0E0A): self.state["p2"]["character"] = convertToInt(value, 24);
-
             elif(region == 0x479d30): self.state["menu"] = convertToInt(value, 0);
             elif(region == 0x4D6CAD): self.state["stage"] = convertToInt(value, 16);
-
             elif(region == 0x0111826C): self.state["p2"]["curosrX"] = convertToFloat(value);
             elif(region == 0x01118270): self.state["p2"]["curosrX"] = convertToFloat(value);
             # elif(value == 0x003F0E08): print("i dont know what this is ");
