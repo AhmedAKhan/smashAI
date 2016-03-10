@@ -171,7 +171,7 @@ class MemoryWatcher:
     def adjustValueForPlayer(self, region, value, player, ptrInt):
         def convertToInt(value, shiftVal): return int(value, 16) >> shiftVal;
         def convertToBool(value, shiftVal): return bool(int(value, 16) >> shiftVal);
-        def convertToFloat(value): return value;  ## struct.unpack('f',struct.pack('i',int(value,16)))
+        def convertToFloat(value): struct.unpack('f',struct.pack('I',int(value,16)))
 
         if(ptrInt == 0x70): self.state[player]["action"] = convertToInt(value,0);
         elif(ptrInt == 0x20CC): self.state[player]["actionCounter"] = convertToInt(value,0);
@@ -223,15 +223,6 @@ class MemoryWatcher:
         elif(baseInt == 0x453130): ## player one
             self.adjustValueForPlayer(region, value, "p2", int(inputAddressList[1], 16));
         self.printState();
-    def printState(self):
-        print("current frame number: ", self.state["frame"]);
-        print("stage: ", self.state["stage"]);
-
-        print("p1 x: ", self.state["p1"]["x"]);
-        print("p1 y: ", self.state["p1"]["y"]);
-
-        print("p2 x: ", self.state["p2"]["x"]);
-        print("p2 y: ", self.state["p2"]["y"]);
     def readMemory(self):
         if(not self.socket):
             print("the socket has not been created yet please create it before calling the pauseForTime function");
