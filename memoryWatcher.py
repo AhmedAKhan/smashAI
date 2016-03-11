@@ -120,7 +120,7 @@ class MemoryWatcher:
             datagram = datagram.splitlines();
             region = datagram[0].decode('ascii');
             value = int(datagram[1][0:-1],16); ## remove the last null character
-            self.readMemory();
+            self.adjustValue(region, datagram[1]);
             if(region != "00479D60"): continue;
 
             numberOfFramesPassed += 1;
@@ -136,15 +136,8 @@ class MemoryWatcher:
                 print("exiting because of condition 2");
                 return;
 
-    def pauseForTime2(self, delay):
-        if(not self.socket):
-            print("the socket has not been created yet please create it before calling the pauseForTime function");
-            return;
-
-
     def getX(self,address):
             while(True):
-
                 datagram = self.socket.recv( 1024 )
                 datagram = datagram.splitlines();
                 region = datagram[0].decode('ascii');
@@ -193,9 +186,9 @@ class MemoryWatcher:
         else: print("WARNING: got an expected memory address", ptrInt);
 
     def adjustValue(self, region, value):
-        def convertToInt(value, shiftVal): return int(value, 16) >> shiftVal;
-        def convertToBool(value, shiftVal): return bool(int(value, 16) >> shiftVal);
-        def convertToFloat(value): return struct.unpack('f',struct.pack('I',int(value,16)))[0];
+        def convertToInt(valShift, shiftVal): return int(valShift, 16) >> shiftVal;
+        def convertToBool(valShift, shiftVal): return bool(int(valShift, 16) >> shiftVal);
+        def convertToFloat(valShift): return struct.unpack('f',struct.pack('I',int(valShift,16)))[0];
         value = value[0:-1];
         # print("region: ", region);
         inputAddressList = region.split(" ");
@@ -225,7 +218,8 @@ class MemoryWatcher:
             self.adjustValueForPlayer(region, value, "p1", int(inputAddressList[1], 16));
         elif(baseInt == 0x453130): ## player one
             self.adjustValueForPlayer(region, value, "p2", int(inputAddressList[1], 16));
-        # self.printState();
+        # self.state.printState();
+
     def readMemory(self):
         if(not self.socket):
             print("the socket has not been created yet please create it before calling the pauseForTime function");

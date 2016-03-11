@@ -189,12 +189,16 @@ class BasicCommands:
             # self.recover()
             # print(self.memoryWatcher.getX(self.p2y))
 
-        # self.jump(7,"right")
+        while(True):
+            self.jump(2, "")
+            self.controller.releaseButtons();
+            self.memoryWatcher.pauseForTime(100);
+
         # self.memoryWatcher.pauseForTime(20)
         # self.sideB("right",False);
         # self.upSmash()
         # self.shield()
-        self.recover2()
+        # self.recover2()
         # self.roll("right")
         # self.upTilt()
         # self.upB("0","0")

@@ -45,6 +45,7 @@ def main():
     basicCommands.test2()
     # while(True):
         # memWatcher.readMemory();
+
     controller.releaseButtons();
 
 
