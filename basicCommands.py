@@ -296,14 +296,14 @@ class BasicCommands:
                         if (distance>40):
                             self.shdl()
 
-                    if (curXPlayer > curXCPU and (curXPlayer-curXCPU < 40)and curXCPU<81):
+                    if (curXPlayer > curXCPU and (curXPlayer-curXCPU < 40)and curXCPU<70):
                         self.controller.inputAnalog("MAIN","1","0.5")
                         self.memoryWatcher.pauseForTime(2)
                         self.controller.releaseButtons()
                         self.shortHopAerial()
                         self.controller.releaseButtons()
 
-                    if (curXPlayer < curXCPU and (curXCPU- curXPlayer< 40) and curXCPU>-81):
+                    if (curXPlayer < curXCPU and (curXCPU- curXPlayer< 40) and curXCPU>-70):
                         self.controller.inputAnalog("MAIN","0","0.5")
                         self.memoryWatcher.pauseForTime(2)
                         self.controller.releaseButtons()
