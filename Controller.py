@@ -46,7 +46,7 @@ class Controller:
 
     def inputAnalog(self,action,buttonXCord,buttonYCord,pressOrRelease=True):
         pipeTemplate = pipes.Template()
-        print (buttonXCord,buttonYCord,pressOrRelease)
+        # print (buttonXCord,buttonYCord,pressOrRelease)
         pipeTemplate.append('tr a-z A-Z', '--')
         pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
         if(not pressOrRelease): action = "RELEASE";
