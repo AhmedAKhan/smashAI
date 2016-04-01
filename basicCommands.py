@@ -106,12 +106,13 @@ class BasicCommands:
         timer = self.memoryWatcher;
         self.controller.inputs("X");
         timer.pauseForTime(pauseTime)
+        # print("not okay!!!!!!!!!!!")
 
 
     def recover(self):
        while (True):
            # self.memoryWatcher.getHitStun()
-           print ("This is the X please print",self.memoryWatcher.getX())
+           # print ("This is the X please print",self.memoryWatcher.getX())
            if (self.memoryWatcher.getHitStun()==0):
                 # currentX = self.memoryWatcher.getX();
                 if ( 1120447161< self.memoryWatcher.getX() <1124447162 ):
@@ -208,33 +209,52 @@ class BasicCommands:
             self.jump(2, "")
             self.controller.releaseButtons();
             self.memoryWatcher.pauseForTime(2);
-            self.controller.inputs("A",True);
-            self.memoryWatcher.pauseForTime(8);
+            # self.controller.inputs("A",True);
+            self.memoryWatcher.pauseForTime(11);
             # curYCPU = self.memoryWatcher.state['p2']['y'];
             # print("Before the L cancel",curYCPU)
             self.controller.releaseButtons();
 
 
-            x=1
+            x=0
 
+
+            self.memoryWatcher.readMemory();
+
+            curYCPU = self.memoryWatcher.state['p2']['y'];
+            # self.memoryWatcher.pauseForTime(1);
+            print("This is the current Y",curYCPU)
             while True:
-                # self.memoryWatcher.pauseForTime(1);
+                self.memoryWatcher.pauseForTime(1);
             #     curYCPU = self.memoryWatcher.state['p2']['y'];
 
             # for i in range(200):
-                self.memoryWatcher.readMemory();
-                curYCPU = self.memoryWatcher.state['p2']['y'];
-                print ("The current Y value of the CPU ",curYCPU)
+                # self.memoryWatcher.readMemory();
+                previousValue = self.memoryWatcher.state['p2']['y'];
+                if (x==1): print ("The fastfall while loop",previousValue)
 
-                if (curYCPU<11 and curYCPU>9):
+                if (curYCPU>previousValue):
                     self.controller.inputAnalog("MAIN","0.5","0")
-                    print("Fast fall now",curYCPU)
+                    print("Fast fall now",previousValue)
                     break;
 
+                x=x+1
+                # print ("The current Y value of the CPU ",curYCPU)
+                # previousValue = curYCPU;
 
-            self.memoryWatcher.pauseForTime(4);
+
+
+                self.memoryWatcher.pauseForTime(30);
+
+                # if (curYCPU<11 and curYCPU>9):
+                #     self.controller.inputAnalog("MAIN","0.5","0")
+                #     print("Fast fall now",curYCPU)
+                #     break;
+
+
+            # self.memoryWatcher.pauseForTime(4);
             self.controller.releaseButtons();
-            self.LCancel()
+            # self.LCancel()
             # self.dashAttack("left")
             # self.controller.inputs("A",True);
             # self.memoryWatcher.pauseForTime(3);
@@ -250,7 +270,7 @@ class BasicCommands:
             curY = self.memoryWatcher.state['p2']['y'];
             # print(curY)
 
-            while ( curY>6 or curY<0 ):
+            while ( curY>8 or curY<0 ):
                 curY = self.memoryWatcher.state['p2']['y'];
                 self.memoryWatcher.pauseForTime(1);
                 print ("L cancel while loop")
@@ -259,7 +279,7 @@ class BasicCommands:
             self.shield()
             self.memoryWatcher.pauseForTime(1);
             self.controller.releaseButtons();
-            self.memoryWatcher.pauseForTime(7);
+            # self.memoryWatcher.pauseForTime(11);
 
 
 
@@ -289,6 +309,44 @@ class BasicCommands:
 
 
 
+    def SHAerial(self,x):
+
+              pAx = self.memoryWatcher.state["p1"]['isOnGround']
+              # self.memoryWatcher.readMemory();
+              self.memoryWatcher.pauseForTime(1);
+              # print(pAx)
+              # print(x)
+              if (pAx==True):
+                  x=1;
+              elif (pAx==False and x==1):
+                  self.jump(2,"")
+                  self.controller.releaseButtons();
+                  self.memoryWatcher.pauseForTime(2);
+                  self.controller.inputs("A",True)
+                  self.memoryWatcher.pauseForTime(2);
+                  self.controller.releaseButtons();
+                  x=2
+                  freezeCounter=0
+                  while True:
+                    curYCPU = self.memoryWatcher.state['p2']['y'];
+                    self.memoryWatcher.pauseForTime(1)
+                    # self.memoryWatcher.readMemory()
+                    curYCPU2 = self.memoryWatcher.state['p2']['y'];
+                    freezeCounter=freezeCounter+1
+                    if (freezeCounter>20):
+                        x=1
+                        print ("it got stuck")
+                        break;
+                    # print ("Getting stuck here?",pAx)
+                    if (curYCPU>curYCPU2):
+                        self.controller.inputAnalog("MAIN","0.5","0")
+                        self.memoryWatcher.pauseForTime(2)
+                        self.controller.releaseButtons();
+                        self.LCancel()
+                        while(pAx==True):
+                            y=2
+                        self.memoryWatcher.pauseForTime(5);
+                        break;
 
 
     def test2(self):
@@ -300,21 +358,52 @@ class BasicCommands:
         # while True:
         #     self.jump(2, "")
         #     self.controller.releaseButtons();
-        #     # self.memoryWatcher.pauseForTime(1);
+            # self.memoryWatcher.pauseForTime(13);
         #     # self.controller.inputs("A",True);
         #     # self.memoryWatcher.pauseForTime(12);
 
         #     for i in range(200):
+
         #         self.memoryWatcher.readMemory();
         #         curYCPU = self.memoryWatcher.state['p2']['y'];
         #         print (curYCPU)
 
-
-        while True:
-            # curXCPU = self.memoryWatcher.state['p2']['x'];
-            # print(curXCPU)
-            self.shortHopAerial()
-            # self.memoryWatcher.pauseForTime(1)
+        # x=1
+        # while True:
+        #       pAx = self.memoryWatcher.state["p1"]['isOnGround']
+        #       # self.memoryWatcher.readMemory();
+        #       self.memoryWatcher.pauseForTime(2);
+        #       print(pAx)
+        #       print(x)
+        #       if (pAx==True):
+        #           x=1;
+        #       elif (pAx==False and x==1):
+        #           self.memoryWatcher.pauseForTime(3);
+        #           self.jump(2,"")
+        #           self.controller.releaseButtons();
+        #           self.memoryWatcher.pauseForTime(2);
+        #           self.controller.inputs("A",True)
+        #           self.memoryWatcher.pauseForTime(2);
+        #           self.controller.releaseButtons();
+        #           x=2
+        #           freezeCounter=0
+        #           while True:
+        #             curYCPU = self.memoryWatcher.state['p2']['y'];
+        #             self.memoryWatcher.pauseForTime(1)
+        #             # self.memoryWatcher.readMemory()
+        #             curYCPU2 = self.memoryWatcher.state['p2']['y'];
+        #             print ("Getting stuck here?")
+        #             freezeCounter=freezeCounter+1
+        #             if (freezeCounter>20):
+        #                 x=1
+        #                 # self.memoryWatcher.pauseForTime(56);
+        #                 break
+        #             if (curYCPU>curYCPU2):
+        #                 self.controller.inputAnalog("MAIN","0.5","0")
+        #                 self.memoryWatcher.pauseForTime(1)
+        #                 self.controller.releaseButtons();
+        #                 self.LCancel()
+        #                 break;
 
         # while True:
         #     pAx = self.memoryWatcher.state[player]['speedAttackX']
@@ -323,31 +412,32 @@ class BasicCommands:
         #     print (pAx)
         #     print (pAy)
 
-        # while True:
-        #     curXPlayer = self.memoryWatcher.state['p1']['x'];
-        #     curXCPU = self.memoryWatcher.state['p2']['x'];
-        #     print ("this is curXCPU",curXCPU)
-        #     self.memoryWatcher.pauseForTime(1)
-        #     self.facePlayer(curXPlayer,curXCPU)
-        #     if (curXCPU>77 or curXCPU <-77): self.recover2()
-        #     else:
-        #         self.memoryWatcher.pauseForTime(1)
-        #         distance = (abs(curXPlayer-curXCPU))
-        #         if (distance>40):
-        #             self.shdl()
-        #         else:
-        #             if (curXPlayer > curXCPU and curXCPU<=70 and curXCPU>=-70):
-        #                 self.controller.inputAnalog("MAIN","1","0.5")
-        #                 self.memoryWatcher.pauseForTime(2)
-        #                 self.controller.releaseButtons()
-        #                 self.shortHopAerial()
-        #                 self.controller.releaseButtons()
-        #             if (curXPlayer < curXCPU and curXCPU>=-70 and curXCPU<=70):
-        #                 self.controller.inputAnalog("MAIN","0","0.5")
-        #                 self.memoryWatcher.pauseForTime(2)
-        #                 self.controller.releaseButtons()
-        #                 self.shortHopAerial()
-        #                 self.controller.releaseButtons()
+        while True:
+            x=1
+            curXPlayer = self.memoryWatcher.state['p1']['x'];
+            curXCPU = self.memoryWatcher.state['p2']['x'];
+            # print ("this is curXCPU",curXCPU)
+            self.memoryWatcher.pauseForTime(1)
+            self.facePlayer(curXPlayer,curXCPU)
+            if (curXCPU>61 or curXCPU <-61): self.recover2()
+            else:
+                self.memoryWatcher.pauseForTime(1)
+                distance = (abs(curXPlayer-curXCPU))
+                if (distance>40):
+                    self.shdl()
+                else:
+                    if (curXPlayer > curXCPU and curXCPU<=60 and curXCPU>=-60):
+                        self.controller.inputAnalog("MAIN","1","0.5")
+                        self.memoryWatcher.pauseForTime(3)
+                        self.controller.releaseButtons()
+                        self.SHAerial(x)
+                        self.controller.releaseButtons()
+                    if (curXPlayer < curXCPU and curXCPU>=-60 and curXCPU<=60):
+                        self.controller.inputAnalog("MAIN","0","0.5")
+                        self.memoryWatcher.pauseForTime(3)
+                        self.controller.releaseButtons()
+                        self.SHAerial(x)
+                        self.controller.releaseButtons()
 
             # self.shdl()
             # self.dashDance()
