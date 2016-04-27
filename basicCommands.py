@@ -41,12 +41,12 @@ class BasicCommands:
 
     def sideB(self,Shorten,dirr):
         self.memoryWatcher.pauseForTime(3)
-        if (dirr=="left"):self.controller.inputAnalog("MAIN","0","0.5")
+        if (dirr=="left"):
+            self.controller.inputAnalog("MAIN","0","0.5")
         else: self.controller.inputAnalog("MAIN","1","0.5")
-        self.memoryWatcher.pauseForTime(1)
+        self.memoryWatcher.pauseForTime(100)
         self.controller.inputs("B",1)
         self.memoryWatcher.pauseForTime(1)
-        # 18
         if Shorten is True:
             self.controller.releaseButtons()
             self.memoryWatcher.pauseForTime(19)
@@ -371,8 +371,12 @@ class BasicCommands:
 
 
         while True:
-            self.SHAerial(1)
-            self.memoryWatcher.pauseForTime(4)
+            # self.sideB(True,"left");
+            # self.SHAerial(1)
+            self.controller.inputAnalog("MAIN","0","0.5")
+            self.memoryWatcher.pauseForTime(35)
+            self.controller.releaseButtons()
+
         # while True:
         #     self.jump(2, "")
         #     self.controller.releaseButtons();
