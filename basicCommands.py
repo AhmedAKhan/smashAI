@@ -327,11 +327,14 @@ class BasicCommands:
                   self.controller.releaseButtons();
                   x=2
                   freezeCounter=0
+
                   while True:
                     curYCPU = self.memoryWatcher.state['p2']['y'];
-                    self.memoryWatcher.pauseForTime(1)
-                    # self.memoryWatcher.readMemory()
+                    print("This is the previous Y", curYCPU)
+                    self.memoryWatcher.readMemory()
                     curYCPU2 = self.memoryWatcher.state['p2']['y'];
+                    print("this is the current Y", curYCPU2)
+
                     freezeCounter=freezeCounter+1
                     if (freezeCounter>20):
                         x=1
@@ -417,7 +420,6 @@ class BasicCommands:
             curXPlayer = self.memoryWatcher.state['p1']['x'];
             curXCPU = self.memoryWatcher.state['p2']['x'];
             # print ("this is curXCPU",curXCPU)
-            print ("this is curXPlayer",curXPlayer)
             self.memoryWatcher.pauseForTime(1)
             self.facePlayer(curXPlayer,curXCPU)
             if (curXCPU>61 or curXCPU <-61): self.recover2()
@@ -428,7 +430,6 @@ class BasicCommands:
                     self.shdl()
                 else:
                     if (curXPlayer > curXCPU and curXCPU<=62 and curXCPU>=-62):
-
                         self.controller.inputAnalog("MAIN","1","0.5")
                         self.memoryWatcher.pauseForTime(3)
                         self.controller.releaseButtons()

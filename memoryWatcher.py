@@ -121,7 +121,7 @@ class MemoryWatcher:
             region = datagram[0].decode('ascii');
             value = int(datagram[1][0:-1],16); ## remove the last null character
             self.adjustValue(region, datagram[1]);
-            if(region != "00479D60"): continue;
+            if(region != "00479D60"): continue; #current updated frame
 
             numberOfFramesPassed += 1;
             if(startingFrame == -1):
