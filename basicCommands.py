@@ -263,7 +263,6 @@ class BasicCommands:
 
     def LCancel(self):
 
-        # while(True):
             # self.jump(2, "")
             # self.controller.releaseButtons();
             # self.memoryWatcher.pauseForTime(25);
@@ -278,7 +277,7 @@ class BasicCommands:
             # self.memoryWatcher.pauseForTime(1);
             # print("Before the L cancel",curY)
             self.shield()
-            self.memoryWatcher.pauseForTime(8);
+            self.memoryWatcher.pauseForTime(5);
             self.controller.releaseButtons();
             # self.memoryWatcher.pauseForTime(11);
 
@@ -317,9 +316,9 @@ class BasicCommands:
               self.memoryWatcher.pauseForTime(1);
               # print(pAx)
               # print(x)
-              if (pAx==True):
-                  x=1;
-              elif (pAx==False and x==1):
+              # if (pAx==True):
+              #     x=1;
+              if ( x==1):
                   self.jump(2,"")
                   self.controller.releaseButtons();
                   self.memoryWatcher.pauseForTime(2);
@@ -370,6 +369,10 @@ class BasicCommands:
         # self.controller.inputAnalog("MAIN","0.5","0")
         # self.memoryWatcher.pauseForTime(52)
 
+
+        while True:
+            self.SHAerial(1)
+            self.memoryWatcher.pauseForTime(1)
         # while True:
         #     self.jump(2, "")
         #     self.controller.releaseButtons();
@@ -427,32 +430,32 @@ class BasicCommands:
         #     print (pAx)
         #     print (pAy)
 
-        while True:
-            x=1
-            curXPlayer = self.memoryWatcher.state['p1']['x'];
-            curXCPU = self.memoryWatcher.state['p2']['x'];
-            # print ("this is curXCPU",curXCPU)
-            self.memoryWatcher.pauseForTime(1)
-            self.facePlayer(curXPlayer,curXCPU)
-            if (curXCPU>61 or curXCPU <-61): self.recover2()
-            else:
-                self.memoryWatcher.pauseForTime(1)
-                distance = (abs(curXPlayer-curXCPU))
-                if (distance>40):
-                    self.shdl()
-                else:
-                    if (curXPlayer > curXCPU and curXCPU<=62 and curXCPU>=-62):
-                        self.controller.inputAnalog("MAIN","1","0.5")
-                        self.memoryWatcher.pauseForTime(3)
-                        self.controller.releaseButtons()
-                        self.SHAerial(x)
-                        self.controller.releaseButtons()
-                    if (curXPlayer < curXCPU and curXCPU>=-62 and curXCPU<=62):
-                        self.controller.inputAnalog("MAIN","0","0.5")
-                        self.memoryWatcher.pauseForTime(3)
-                        self.controller.releaseButtons()
-                        self.SHAerial(x)
-                        self.controller.releaseButtons()
+        # while True:
+        #     x=1
+        #     curXPlayer = self.memoryWatcher.state['p1']['x'];
+        #     curXCPU = self.memoryWatcher.state['p2']['x'];
+        #     # print ("this is curXCPU",curXCPU)
+        #     self.memoryWatcher.pauseForTime(1)
+        #     self.facePlayer(curXPlayer,curXCPU)
+        #     if (curXCPU>61 or curXCPU <-61): self.recover2()
+        #     else:
+        #         self.memoryWatcher.pauseForTime(1)
+        #         distance = (abs(curXPlayer-curXCPU))
+        #         if (distance>40):
+        #             self.shdl()
+        #         else:
+        #             if (curXPlayer > curXCPU and curXCPU<=62 and curXCPU>=-62):
+        #                 self.controller.inputAnalog("MAIN","1","0.5")
+        #                 self.memoryWatcher.pauseForTime(3)
+        #                 self.controller.releaseButtons()
+        #                 self.SHAerial(x)
+        #                 self.controller.releaseButtons()
+        #             if (curXPlayer < curXCPU and curXCPU>=-62 and curXCPU<=62):
+        #                 self.controller.inputAnalog("MAIN","0","0.5")
+        #                 self.memoryWatcher.pauseForTime(3)
+        #                 self.controller.releaseButtons()
+        #                 self.SHAerial(x)
+        #                 self.controller.releaseButtons()
 
             # self.shdl()
             # self.dashDance()
