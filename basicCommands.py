@@ -157,8 +157,9 @@ class BasicCommands:
                else:
                     # currentX = self.memoryWatcher.getX(self.p2x);
                     # currentY = self.memoryWatcher.getX(self.p2y);
+
                     curX = self.memoryWatcher.state['p2']['x'];
-                    print ("curX: ",curX)
+                    print("curX: ",curX)
                     if ( curX>81 ):
                         # self.recoveryHelper("left","left")
                         self.jump(2,"left")
@@ -169,7 +170,6 @@ class BasicCommands:
                             else: self.upB("0","0.8")
                         else: self.upB("0","1")
                     elif (curX < -81):
-
                         self.jump(2,"right")
                         self.memoryWatcher.pauseForTime(10)
                         curY = self.memoryWatcher.state['p2']['y'];
@@ -311,7 +311,7 @@ class BasicCommands:
 
 
     def SHAerial(self,x):
-              print("starting the SHAerial function y value: ", self.memoryWatcher.state['p1']['y']);
+              print("starting the SHAerial function y value: ", self.memoryWatcher.state['p2']['y']);
               pAx = self.memoryWatcher.state["p1"]['isOnGround']
               # self.memoryWatcher.readMemory();
               self.memoryWatcher.pauseForTime(1);
@@ -329,14 +329,20 @@ class BasicCommands:
                   x=2
                   freezeCounter=0
 
+                  print("SHAerial, y value: ", self.memoryWatcher.state['p2']['y']);
                   while True:
                     curYCPU = self.memoryWatcher.state['p2']['y'];
+                    if( -0.01 <= curYCPU <= 0.01):
+                        print("already hit the ground, to late");
+                        break;
+                    else:
+                        print("y value: ", self.memoryWatcher.state['p2']['y'], " lower then 0.01: ", self.memoryWatcher.state['p2']['y']<= 0.01, " greater then -0.01", self.memoryWatcher.state['p2']['y'] >= -0.01);
                     # print("This is the previous Y", curYCPU)
                     self.memoryWatcher.readMemory()
                     curYCPU2 = self.memoryWatcher.state['p2']['y'];
                     if(curYCPU2 != curYCPU):
                         # print("this is the current Y", curYCPU2)
-                        print("previous current y: ", curYCPU, " current y: ", curYCPU2);
+                        print("CHAnged previous current y: ", curYCPU, " current y: ", curYCPU2);
 
 
                     # freezeCounter=freezeCounter+1
