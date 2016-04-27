@@ -272,12 +272,13 @@ class BasicCommands:
 
             while ( curY>8 or curY<0 ):
                 curY = self.memoryWatcher.state['p2']['y'];
-                self.memoryWatcher.pauseForTime(1);
+                self.memoryWatcher.readMemory();
+                # self.memoryWatcher.pauseForTime(1);
                 print ("L cancel while loop")
             # self.memoryWatcher.pauseForTime(1);
             # print("Before the L cancel",curY)
             self.shield()
-            self.memoryWatcher.pauseForTime(1);
+            self.memoryWatcher.pauseForTime(8);
             self.controller.releaseButtons();
             # self.memoryWatcher.pauseForTime(11);
 
