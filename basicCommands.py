@@ -310,7 +310,7 @@ class BasicCommands:
 
 
     def SHAerial(self,x):
-
+              print("starting the SHAerial function y value: ", self.memoryWatcher.state['p1']['y']);
               pAx = self.memoryWatcher.state["p1"]['isOnGround']
               # self.memoryWatcher.readMemory();
               self.memoryWatcher.pauseForTime(1);
@@ -330,16 +330,20 @@ class BasicCommands:
 
                   while True:
                     curYCPU = self.memoryWatcher.state['p2']['y'];
-                    print("This is the previous Y", curYCPU)
+                    # print("This is the previous Y", curYCPU)
                     self.memoryWatcher.readMemory()
                     curYCPU2 = self.memoryWatcher.state['p2']['y'];
-                    print("this is the current Y", curYCPU2)
+                    if(curYCPU2 != curYCPU):
+                        # print("this is the current Y", curYCPU2)
+                        print("previous current y: ", curYCPU, " current y: ", curYCPU2);
 
-                    freezeCounter=freezeCounter+1
-                    if (freezeCounter>20):
-                        x=1
-                        print ("it got stuck")
-                        break;
+
+                    # freezeCounter=freezeCounter+1
+                    # if (freezeCounter>500):
+                    #     x=1
+                    #     print ("it got stuck arieal")
+                    #     raise ("arieal exception")
+                        # break;
                     # print ("Getting stuck here?",pAx)
                     if (curYCPU>curYCPU2):
                         self.controller.inputAnalog("MAIN","0.5","0")
@@ -350,6 +354,7 @@ class BasicCommands:
                             y=2
                         self.memoryWatcher.pauseForTime(5);
                         break;
+              print("ending the SHAerial function ");
 
 
     def test2(self):
