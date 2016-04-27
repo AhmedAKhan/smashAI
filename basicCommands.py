@@ -325,7 +325,7 @@ class BasicCommands:
                   self.controller.inputs("A",True)
                   self.memoryWatcher.pauseForTime(2);
                   self.controller.releaseButtons();
-                  x=2
+                  # x=2
                   freezeCounter=0
 
                   print("SHAerial, y value: ", self.memoryWatcher.state['p2']['y']);
@@ -356,8 +356,8 @@ class BasicCommands:
                         self.memoryWatcher.pauseForTime(2)
                         self.controller.releaseButtons();
                         self.LCancel()
-                        while(pAx==True):
-                            y=2
+                        # while(pAx==True):
+                        #     y=2
                         self.memoryWatcher.pauseForTime(5);
                         break;
               print("ending the SHAerial function ");
@@ -372,7 +372,7 @@ class BasicCommands:
 
         while True:
             self.SHAerial(1)
-            self.memoryWatcher.pauseForTime(1)
+            self.memoryWatcher.pauseForTime(4)
         # while True:
         #     self.jump(2, "")
         #     self.controller.releaseButtons();
