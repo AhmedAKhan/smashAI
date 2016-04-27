@@ -128,13 +128,8 @@ class MemoryWatcher:
                 startingFrame = value;
 
             # print("number of frames passed: " + str(numberOfFramesPassed), "delay: ", delay, "value: ", value, "startingFrame: ", startingFrame)
-            if(value >= startingFrame + delay):
-                # print("exiting because of condition 1");
-                return;
-
-            if(numberOfFramesPassed >= delay):
-                # print("exiting because of condition 2");
-                return;
+            if(value >= startingFrame + delay): return;
+            if(numberOfFramesPassed >= delay): return;
 
     def getX(self,address):
             while(True):
