@@ -417,6 +417,7 @@ class BasicCommands:
             curXPlayer = self.memoryWatcher.state['p1']['x'];
             curXCPU = self.memoryWatcher.state['p2']['x'];
             # print ("this is curXCPU",curXCPU)
+            print ("this is curXPlayer",curXPlayer)
             self.memoryWatcher.pauseForTime(1)
             self.facePlayer(curXPlayer,curXCPU)
             if (curXCPU>61 or curXCPU <-61): self.recover2()
@@ -426,13 +427,14 @@ class BasicCommands:
                 if (distance>40):
                     self.shdl()
                 else:
-                    if (curXPlayer > curXCPU and curXCPU<=60 and curXCPU>=-60):
+                    if (curXPlayer > curXCPU and curXCPU<=62 and curXCPU>=-62):
+
                         self.controller.inputAnalog("MAIN","1","0.5")
                         self.memoryWatcher.pauseForTime(3)
                         self.controller.releaseButtons()
                         self.SHAerial(x)
                         self.controller.releaseButtons()
-                    if (curXPlayer < curXCPU and curXCPU>=-60 and curXCPU<=60):
+                    if (curXPlayer < curXCPU and curXCPU>=-62 and curXCPU<=62):
                         self.controller.inputAnalog("MAIN","0","0.5")
                         self.memoryWatcher.pauseForTime(3)
                         self.controller.releaseButtons()
