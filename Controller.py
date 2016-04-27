@@ -8,26 +8,28 @@ import pipes
 class Controller:
     def __init__(self, path):
         self.path = path;
-        pipeTemplate = pipes.Template()
-        pipeTemplate.append('tr a-z A-Z', '--')
-        self.pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
+        self.__setupPipe();
+    def __setupPipe(self):
+        # pipeTemplate = pipes.Template()
+        # pipeTemplate.append('tr a-z A-Z', '--')
+        # self.pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
+        self.pipe = open(self.path+'/Pipes/cpu-level-11', 'w');
 
-#call this at the end of every script
+    #call this at the end of every script
     def releaseButtons(self):
-        pipeTemplate = pipes.Template()
-        pipeTemplate.append('tr a-z A-Z', '--')
-        pipe =pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
-        pipe.write("Set MAIN 0.5 0.5\n");
-        pipe.write("SET C 0.5 0.5\n");
-        pipe.write("SET L 0\n");
-        pipe.write("SET R 0\n");
-        pipe.write("RELEASE X\n");
-        pipe.write("RELEASE A\n");
-        pipe.write("RELEASE B\n");
-        pipe.write("RELEASE Z\n");
-        pipe.write("RELEASE L\n");
-        pipe.write("RELEASE START\n");
-        pipe.close();
+        # if(not self.pipe): self.__setupPipe();
+        # print("self.pipe: ", self.pipe );
+        self.pipe.write("Set MAIN 0.5 0.5\n");
+        self.pipe.write("SET C 0.5 0.5\n");
+        self.pipe.write("SET L 0\n");
+        self.pipe.write("SET R 0\n");
+        self.pipe.write("RELEASE X\n");
+        self.pipe.write("RELEASE A\n");
+        self.pipe.write("RELEASE B\n");
+        self.pipe.write("RELEASE Z\n");
+        self.pipe.write("RELEASE L\n");
+        self.pipe.write("RELEASE START\n");
+        self.pipe.flush();
 
     """
         this function will press or release the given button for the given amount of time
@@ -36,31 +38,35 @@ class Controller:
         par3 = if you want the button to be released make pressOrReleased to False
     """
     def inputs(self,button2Press,pressOrRelease=True):
-        pipeTemplate = pipes.Template()
-        pipeTemplate.append('tr a-z A-Z', '--')
-        pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
+        # pipeTemplate = pipes.Template()
+        # pipeTemplate.append('tr a-z A-Z', '--')
+        # pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
         action = "PRESS";
         if(not pressOrRelease): action = "RELEASE";
-        pipe.write(action + " "+button2Press+"\n")
-        pipe.close();
+        self.pipe.write(action + " "+button2Press+"\n")
+        # self.pipe.close();
+        self.pipe.flush();
 
     def inputAnalog(self,action,buttonXCord,buttonYCord,pressOrRelease=True):
-        pipeTemplate = pipes.Template()
+        # pipeTemplate = pipes.Template()
         # print (buttonXCord,buttonYCord,pressOrRelease)
-        pipeTemplate.append('tr a-z A-Z', '--')
-        pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
+        # pipeTemplate.append('tr a-z A-Z', '--')
+        # pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
         if(not pressOrRelease): action = "RELEASE";
-        pipe.write("Set"+" "+action+" "+buttonXCord+" "+buttonYCord+"\n")
-        pipe.close();
+        self.pipe.write("Set"+" "+action+" "+buttonXCord+" "+buttonYCord+"\n")
+        # self.pipe.close();
+        self.pipe.flush();
 
     def triggerAnalog(self,action,buttonXCord,pressOrRelease=True):
-        pipeTemplate = pipes.Template()
-        pipeTemplate.append('tr a-z A-Z', '--')
-        pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
+        # pipeTemplate = pipes.Template()
+        # pipeTemplate.append('tr a-z A-Z', '--')
+        # pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
         if(not pressOrRelease): action = "RELEASE";
-        pipe.write("Set"+" "+action+" "+buttonXCord+" "+"\n")
-        pipe.close();
+        self.pipe.write("Set"+" "+action+" "+buttonXCord+" "+"\n")
+        self.pipe.flush();
+        # self.pipe.close();
 
 #still a work in progress
+# if __name__  == "__main__":
 
 
