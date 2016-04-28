@@ -1,0 +1,4 @@
+genome = entire neural network
+chromosom = 
+
+

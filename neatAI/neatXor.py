@@ -9,13 +9,17 @@ xor_outputs = [0, 1, 1, 0]
 
 
 """
-  @param1 { NodeGene list} genomes = is a list of class nodeGenes, the file called genome.py (https://github.com/MatKallada/neat-python/blob/master/neat/genome.py)
-  @return {float} represents the fitness evaluation of the current node.
+  @param1 { NodeGene list} genomes = is a list of class nodeGenes, the file called genome.py (https://github.com/MatKallada/neat-python/blob/master/neat/genome.py), genome is the entire neural network, so this is taking in all the nn's in this generation
+
+  @return nothing
+
+  this function will change the fitness variable for each node which represents how effective it is
 """
 def eval_fitness(genomes):
     print("genomes: ", type(genomes));
     print("genoes[0]: ", genomes[0]);
     for g in genomes:
+        ### get the neural network
         net = nn.create_feed_forward_phenotype(g)
 
         sum_square_error = 0.0
