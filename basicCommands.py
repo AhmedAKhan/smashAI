@@ -44,7 +44,7 @@ class BasicCommands:
         if (dirr=="left"):
             self.controller.inputAnalog("MAIN","0","0.5")
         else: self.controller.inputAnalog("MAIN","1","0.5")
-        self.memoryWatcher.pauseForTime(100)
+        self.memoryWatcher.pauseForTime(2)
         self.controller.inputs("B",1)
         self.memoryWatcher.pauseForTime(1)
         if Shorten is True:
@@ -269,7 +269,7 @@ class BasicCommands:
             curY = self.memoryWatcher.state['p2']['y'];
             # print(curY)
 
-            while ( curY>8 or curY<0 ):
+            while ( curY>2 ):
                 curY = self.memoryWatcher.state['p2']['y'];
                 self.memoryWatcher.readMemory();
                 # self.memoryWatcher.pauseForTime(1);
@@ -277,7 +277,7 @@ class BasicCommands:
             # self.memoryWatcher.pauseForTime(1);
             # print("Before the L cancel",curY)
             self.shield()
-            self.memoryWatcher.pauseForTime(5);
+            self.memoryWatcher.pauseForTime(3);
             self.controller.releaseButtons();
             # self.memoryWatcher.pauseForTime(11);
 
@@ -364,21 +364,26 @@ class BasicCommands:
 
 
     def test2(self):
-        self.memoryWatcher.pauseForTime(52)
+        self.memoryWatcher.pauseForTime(97)
         self.controller.releaseButtons()
         # self.controller.inputAnalog("MAIN","0.5","0")
         # self.memoryWatcher.pauseForTime(52)
 
 
+        # self.jump(2,"")
+        # self.controller.releaseButtons()
         while True:
             # self.controller.releaseButtons()
-            self.memoryWatcher.pauseForTime(35)
-            self.sideB(True,"right");
+            self.memoryWatcher.pauseForTime(1)
+            # curYCPU = self.memoryWatcher.state['p2']['y'];
+            # print(curYCPU)
+            self.SHAerial(1);
+            # self.sideB(True,"right");
+            # self.upSmash()
             # self.controller.inputAnalog("MAIN","0","0.5")
             self.controller.releaseButtons()
 
         # while True:
-        #     self.jump(2, "")
         #     self.controller.releaseButtons();
             # self.memoryWatcher.pauseForTime(13);
         #     # self.controller.inputs("A",True);
@@ -500,7 +505,6 @@ class BasicCommands:
 
         # self.memoryWatcher.pauseForTime(20)
         # self.sideB(True,"left");
-        # self.upSmash()
         # self.shield()
         # self.recover2()
         # self.roll("right")

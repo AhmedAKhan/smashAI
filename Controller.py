@@ -19,7 +19,7 @@ class Controller:
     def releaseButtons(self):
         # if(not self.pipe): self.__setupPipe();
         # print("self.pipe: ", self.pipe );
-        self.pipe.write("Set MAIN 0.5 0.5\n");
+        self.pipe.write("SET MAIN 0.5 0.5\n");
         self.pipe.write("SET C 0.5 0.5\n");
         self.pipe.write("SET L 0\n");
         self.pipe.write("SET R 0\n");
