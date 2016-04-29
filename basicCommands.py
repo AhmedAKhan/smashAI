@@ -56,7 +56,7 @@ class BasicCommands:
     #performs a jump cancelled up Smash
     def upSmash(self):
         self.controller.inputAnalog("MAIN","0.5","1")
-        self.memoryWatcher.pauseForTime(1)
+        self.memoryWatcher.pauseForTime(2)
         self.controller.inputs("A",1)
         self.memoryWatcher.pauseForTime(1)
 
@@ -371,10 +371,10 @@ class BasicCommands:
 
 
         while True:
-            # self.sideB(True,"left");
-            # self.SHAerial(1)
-            self.controller.inputAnalog("MAIN","0","0.5")
+            # self.controller.releaseButtons()
             self.memoryWatcher.pauseForTime(35)
+            self.sideB(True,"right");
+            # self.controller.inputAnalog("MAIN","0","0.5")
             self.controller.releaseButtons()
 
         # while True:

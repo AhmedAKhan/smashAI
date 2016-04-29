@@ -53,7 +53,7 @@ class Controller:
         # pipeTemplate.append('tr a-z A-Z', '--')
         # pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
         if(not pressOrRelease): action = "RELEASE";
-        self.pipe.write("Set"+" "+action+" "+buttonXCord+" "+buttonYCord+"\n")
+        self.pipe.write("SET"+" "+action+" "+buttonXCord+" "+buttonYCord+"\n")
         # self.pipe.close();
         self.pipe.flush();
 
@@ -62,7 +62,7 @@ class Controller:
         # pipeTemplate.append('tr a-z A-Z', '--')
         # pipe = pipeTemplate.open(self.path+'/Pipes/cpu-level-11', 'w')
         if(not pressOrRelease): action = "RELEASE";
-        self.pipe.write("Set"+" "+action+" "+buttonXCord+" "+"\n")
+        self.pipe.write("SET"+" "+action+" "+buttonXCord+" "+"\n")
         self.pipe.flush();
         # self.pipe.close();
 
