@@ -68,6 +68,8 @@ class BasicCommands:
 
     def shield(self):
         self.controller.triggerAnalog("L","1")
+        self.memoryWatcher.pauseForTime(2);
+        self.controller.releaseButtons();
 
     def roll(self,dir):
         self.shield()
@@ -106,6 +108,7 @@ class BasicCommands:
         timer = self.memoryWatcher;
         self.controller.inputs("X");
         timer.pauseForTime(pauseTime)
+        self.controller.releaseButtons();
         # print("not okay!!!!!!!!!!!")
 
 
@@ -204,82 +207,19 @@ class BasicCommands:
             self.memoryWatcher.pauseForTime(13)
 
 
-    def shortHopAerial(self):
-
-            self.jump(2, "")
-            self.controller.releaseButtons();
-            self.memoryWatcher.pauseForTime(2);
-            # self.controller.inputs("A",True);
-            self.memoryWatcher.pauseForTime(11);
-            # curYCPU = self.memoryWatcher.state['p2']['y'];
-            # print("Before the L cancel",curYCPU)
-            self.controller.releaseButtons();
-
-
-            x=0
-
-
-            self.memoryWatcher.readMemory();
-
-            curYCPU = self.memoryWatcher.state['p2']['y'];
-            # self.memoryWatcher.pauseForTime(1);
-            print("This is the current Y",curYCPU)
-            while True:
-                self.memoryWatcher.pauseForTime(1);
-            #     curYCPU = self.memoryWatcher.state['p2']['y'];
-
-            # for i in range(200):
-                # self.memoryWatcher.readMemory();
-                previousValue = self.memoryWatcher.state['p2']['y'];
-                if (x==1): print ("The fastfall while loop",previousValue)
-
-                if (curYCPU>previousValue):
-                    self.controller.inputAnalog("MAIN","0.5","0")
-                    print("Fast fall now",previousValue)
-                    break;
-
-                x=x+1
-                # print ("The current Y value of the CPU ",curYCPU)
-                # previousValue = curYCPU;
 
 
 
-                self.memoryWatcher.pauseForTime(30);
-
-                # if (curYCPU<11 and curYCPU>9):
-                #     self.controller.inputAnalog("MAIN","0.5","0")
-                #     print("Fast fall now",curYCPU)
-                #     break;
 
 
-            # self.memoryWatcher.pauseForTime(4);
-            self.controller.releaseButtons();
-            # self.LCancel()
-            # self.dashAttack("left")
-            # self.controller.inputs("A",True);
-            # self.memoryWatcher.pauseForTime(3);
-            # self.upSmash()
-            self.controller.releaseButtons();
 
-    def LCancel(self):
 
-            # self.jump(2, "")
-            # self.controller.releaseButtons();
-            # self.memoryWatcher.pauseForTime(25);
-            curY = self.memoryWatcher.state['p2']['y'];
-            # print(curY)
 
-            while ( curY>2 ):
-                curY = self.memoryWatcher.state['p2']['y'];
-                self.memoryWatcher.readMemory();
-                # self.memoryWatcher.pauseForTime(1);
-                print ("L cancel while loop")
-            # self.memoryWatcher.pauseForTime(1);
-            # print("Before the L cancel",curY)
-            self.shield()
-            self.memoryWatcher.pauseForTime(3);
-            self.controller.releaseButtons();
-            # self.memoryWatcher.pauseForTime(11);
+
+
+
+
+
 
 
 
@@ -311,57 +251,40 @@ class BasicCommands:
 
     def SHAerial(self,x):
               print("starting the SHAerial function y value: ", self.memoryWatcher.state['p2']['y']);
-              pAx = self.memoryWatcher.state["p1"]['isOnGround']
-              # self.memoryWatcher.readMemory();
-              self.memoryWatcher.pauseForTime(1);
-              # print(pAx)
-              # print(x)
-              # if (pAx==True):
-              #     x=1;
-              if ( x==1):
-                  self.jump(2,"")
-                  self.controller.releaseButtons();
-                  self.memoryWatcher.pauseForTime(2);
-                  self.controller.inputs("A",True)
-                  self.memoryWatcher.pauseForTime(2);
-                  self.controller.releaseButtons();
-                  # x=2
-                  freezeCounter=0
+              #do a short hop and then immediately do a neutral air
+              self.jump(2,"")#the short hop is done here
+              self.memoryWatcher.pauseForTime(2); #wait 2 frames
+              self.controller.inputs("A",True)  #then press A while in the air causing a neutral air attack
+              self.memoryWatcher.pauseForTime(2); #the A must be pressed for 2 frames for it to register in the game
+              self.controller.releaseButtons();
 
-                  print("SHAerial, y value: ", self.memoryWatcher.state['p2']['y']);
-                  while True:
-                    curYCPU = self.memoryWatcher.state['p2']['y'];
-                    if( -0.01 <= curYCPU <= 0.01):
-                        print("already hit the ground, to late");
-                        break;
-                    else:
-                        print("y value: ", self.memoryWatcher.state['p2']['y'], " lower then 0.01: ", self.memoryWatcher.state['p2']['y']<= 0.01, " greater then -0.01", self.memoryWatcher.state['p2']['y'] >= -0.01);
-                    # print("This is the previous Y", curYCPU)
-                    self.memoryWatcher.readMemory()
-                    curYCPU2 = self.memoryWatcher.state['p2']['y'];
-                    if(curYCPU2 != curYCPU):
-                        # print("this is the current Y", curYCPU2)
-                        print("CHAnged previous current y: ", curYCPU, " current y: ", curYCPU2);
-
-
-                    # freezeCounter=freezeCounter+1
-                    # if (freezeCounter>500):
-                    #     x=1
-                    #     print ("it got stuck arieal")
-                    #     raise ("arieal exception")
-                        # break;
-                    # print ("Getting stuck here?",pAx)
-                    if (curYCPU>curYCPU2):
-                        self.controller.inputAnalog("MAIN","0.5","0")
-                        self.memoryWatcher.pauseForTime(2)
+              print("SHAerial, y value: ", self.memoryWatcher.state['p2']['y']);
+              while True:
+                #check if Fox is falling, done by checking when Y starts decreasing, we do this using two Y values
+                curYCPU = self.memoryWatcher.state['p2']['y']; #the first Y address
+                self.memoryWatcher.readMemory() # update the addresses
+                curYCPU2 = self.memoryWatcher.state['p2']['y']; #the second Y address
+                #when Y starts decreasing do a fast all and get ready to L cancel
+                if (curYCPU>curYCPU2):
+                        self.controller.inputAnalog("MAIN","0.5","0") #press down to start the fastfall
+                        self.memoryWatcher.pauseForTime(2)  #need to press down for at least 2 frames for it to register
                         self.controller.releaseButtons();
-                        self.LCancel()
-                        # while(pAx==True):
-                        #     y=2
-                        self.memoryWatcher.pauseForTime(5);
+                        self.LCancel() #function that waits for the right time to L cancel
                         break;
-              print("ending the SHAerial function ");
+                print("ending the SHAerial function ");
 
+#this function waits until Fox is just about to land
+#then it presses L to reduce the landing lag of the aerial by half
+#right now it's hard coded to work for only his neutral aerial
+    def LCancel(self):
+            curY = self.memoryWatcher.state['p2']['y'];
+            #if Y is >2 as Fox is falling down, wait as it's not time to L cancel yet
+            while ( curY>2 ):
+                curY = self.memoryWatcher.state['p2']['y'];
+                self.memoryWatcher.readMemory();
+                print ("L cancel while loop")
+            self.shield()  #do the L cancel
+            self.memoryWatcher.pauseForTime(6); #waits until the landing lag of the neutral air ends
 
     def test2(self):
         self.memoryWatcher.pauseForTime(97)
