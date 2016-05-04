@@ -250,6 +250,14 @@ class BasicCommands:
 
 
     def SHAerial(self,x):
+        #check to see when AI can move
+              actionFrame = self.memoryWatcher.state['p1']['action'];
+              while (actionFrame!=14):  #when this address reaches 14, the AI is actionable
+                self.memoryWatcher.readMemory() # update the addresses
+                actionFrame = self.memoryWatcher.state['p1']['action'];
+                print ("not 14 yet")
+
+
               print("starting the SHAerial function y value: ", self.memoryWatcher.state['p2']['y']);
               #do a short hop and then immediately do a neutral air
               self.jump(2,"")#the short hop is done here
@@ -284,39 +292,22 @@ class BasicCommands:
                 self.memoryWatcher.readMemory();
                 print ("L cancel while loop")
             self.shield()  #do the L cancel
-            self.memoryWatcher.pauseForTime(6); #waits until the landing lag of the neutral air ends
+            # self.memoryWatcher.pauseForTime(6); #waits until the landing lag of the neutral air ends
 
     def test2(self):
         self.memoryWatcher.pauseForTime(97)
         self.controller.releaseButtons()
-        # self.controller.inputAnalog("MAIN","0.5","0")
-        # self.memoryWatcher.pauseForTime(52)
 
 
-        # self.jump(2,"")
-        # self.controller.releaseButtons()
         while True:
-            # self.controller.releaseButtons()
             self.memoryWatcher.pauseForTime(1)
-            # curYCPU = self.memoryWatcher.state['p2']['y'];
-            # print(curYCPU)
             self.SHAerial(1);
-            # self.sideB(True,"right");
-            # self.upSmash()
-            # self.controller.inputAnalog("MAIN","0","0.5")
+            # action = self.memoryWatcher.state["p1"]['action']
+            # if (action==14): print("it reached!!")
+            # else: print("nope")
             self.controller.releaseButtons()
 
-        # while True:
-        #     self.controller.releaseButtons();
-            # self.memoryWatcher.pauseForTime(13);
-        #     # self.controller.inputs("A",True);
-        #     # self.memoryWatcher.pauseForTime(12);
 
-        #     for i in range(200):
-
-        #         self.memoryWatcher.readMemory();
-        #         curYCPU = self.memoryWatcher.state['p2']['y'];
-        #         print (curYCPU)
 
         # x=1
         # while True:
@@ -355,12 +346,6 @@ class BasicCommands:
         #                 self.LCancel()
         #                 break;
 
-        # while True:
-        #     pAx = self.memoryWatcher.state[player]['speedAttackX']
-        #     pAy = self.memoryWatcher.state[player]['speedAttackY']
-        #     self.memoryWatcher.pauseForTime(4)
-        #     print (pAx)
-        #     print (pAy)
 
         # while True:
         #     x=1
@@ -427,7 +412,7 @@ class BasicCommands:
             # self.memoryWatcher.pauseForTime(100);
 
         # self.memoryWatcher.pauseForTime(20)
-        # self.sideB(True,"left");
+        self.sideB(True,"left");
         # self.shield()
         # self.recover2()
         # self.roll("right")
