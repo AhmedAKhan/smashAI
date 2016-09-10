@@ -60,6 +60,7 @@ class BasicCommands:
         self.controller.inputs("A",1)
         self.memoryWatcher.pauseForTime(1)
 
+
     def upTilt(self):
         self.controller.inputAnalog("MAIN","0.5","0.6")
         self.memoryWatcher.pauseForTime(2)
@@ -302,9 +303,6 @@ class BasicCommands:
         while True:
             self.memoryWatcher.pauseForTime(1)
             self.SHAerial(1);
-            # action = self.memoryWatcher.state["p1"]['action']
-            # if (action==14): print("it reached!!")
-            # else: print("nope")
             self.controller.releaseButtons()
 
 
@@ -412,7 +410,7 @@ class BasicCommands:
             # self.memoryWatcher.pauseForTime(100);
 
         # self.memoryWatcher.pauseForTime(20)
-        self.sideB(True,"left");
+        # self.sideB(True,"left");
         # self.shield()
         # self.recover2()
         # self.roll("right")
